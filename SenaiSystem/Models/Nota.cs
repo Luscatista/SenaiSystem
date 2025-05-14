@@ -23,9 +23,9 @@ public partial class Nota
 
     public int? Prioridade { get; set; }
 
-    public virtual ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
-
     public virtual Usuario? IdUsuarioNavigation { get; set; }
 
     public virtual ICollection<Lembrete> Lembretes { get; set; } = new List<Lembrete>();
+
+    public virtual ICollection<NotaCategoria> NotaCategoria { get; set; } = new List<NotaCategoria>();
 }

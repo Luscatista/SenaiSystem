@@ -16,11 +16,11 @@ public partial class SenaiSystemContext : DbContext
     {
     }
 
-    public virtual DbSet<Categoria> Categoria { get; set; }
+    public virtual DbSet<Categorium> Categoria { get; set; }
 
     public virtual DbSet<Lembrete> Lembretes { get; set; }
 
-    public virtual DbSet<NotaCategorium> NotaCategoria { get; set; }
+    public virtual DbSet<NotaCategoria> NotaCategoria { get; set; }
 
     public virtual DbSet<Nota> Nota { get; set; }
 
@@ -32,22 +32,18 @@ public partial class SenaiSystemContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Categoria>(entity =>
+        modelBuilder.Entity<Categorium>(entity =>
         {
-            entity.HasKey(e => e.IdCategoria).HasName("PK__Categori__A3C02A104EB71C00");
+            entity.HasKey(e => e.IdCategoria).HasName("PK__Categori__A3C02A1085F3B329");
 
             entity.Property(e => e.Nome)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.IdNotaNavigation).WithMany(p => p.Categoria)
-                .HasForeignKey(d => d.IdNota)
-                .HasConstraintName("FK__Categoria__IdNot__30C33EC3");
         });
 
         modelBuilder.Entity<Lembrete>(entity =>
         {
-            entity.HasKey(e => e.IdLembrete).HasName("PK__Lembrete__07C2D3EC04420E55");
+            entity.HasKey(e => e.IdLembrete).HasName("PK__Lembrete__07C2D3EC85BBA073");
 
             entity.ToTable("Lembrete");
 
@@ -55,21 +51,25 @@ public partial class SenaiSystemContext : DbContext
 
             entity.HasOne(d => d.IdNotaNavigation).WithMany(p => p.Lembretes)
                 .HasForeignKey(d => d.IdNota)
-                .HasConstraintName("FK__Lembrete__IdNota__2DE6D218");
+                .HasConstraintName("FK__Lembrete__IdNota__3B40CD36");
         });
 
-        modelBuilder.Entity<NotaCategorium>(entity =>
+        modelBuilder.Entity<NotaCategoria>(entity =>
         {
-            entity.HasKey(e => e.IdNotaCategoria).HasName("PK__NotaCate__0028751737CAB61F");
+            entity.HasKey(e => e.IdNotaCategoria).HasName("PK__NotaCate__00287517816CB1F4");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.NotaCategoria)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__NotaCateg__IdCat__339FAB6E");
+                .HasConstraintName("FK__NotaCateg__IdCat__40058253");
+
+            entity.HasOne(d => d.IdNotaNavigation).WithMany(p => p.NotaCategoria)
+                .HasForeignKey(d => d.IdNota)
+                .HasConstraintName("FK__NotaCateg__IdNot__40F9A68C");
         });
 
         modelBuilder.Entity<Nota>(entity =>
         {
-            entity.HasKey(e => e.IdNota).HasName("PK__Nota__4B2ACFF22F9655D2");
+            entity.HasKey(e => e.IdNota).HasName("PK__Nota__4B2ACFF28580AFD6");
 
             entity.Property(e => e.Conteudo).HasColumnType("text");
             entity.Property(e => e.DataCriacao).HasColumnType("datetime");
@@ -83,12 +83,12 @@ public partial class SenaiSystemContext : DbContext
 
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Nota)
                 .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK__Nota__IdUsuario__22751F6C");
+                .HasConstraintName("FK__Nota__IdUsuario__3864608B");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF9737BEEADE");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF97E254AFC6");
 
             entity.ToTable("Usuario");
 
