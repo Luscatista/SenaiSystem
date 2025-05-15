@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SenaiSystemContext>();
 
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
+builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 
 builder.Services.AddControllers();
 
