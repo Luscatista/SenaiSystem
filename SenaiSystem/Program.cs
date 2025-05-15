@@ -1,4 +1,14 @@
+using SenaiSystem.Context;
+using SenaiSystem.Interfaces;
+using SenaiSystem.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddDbContext<SenaiSystemContext>();
+
+builder.Services.AddTransient<INotaRepository, NotaRepository>();
 
 builder.Services.AddControllers();
 
@@ -27,7 +37,11 @@ app.MapControllers();
 
 app.UseSwagger();
 
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
 
 app.Run();
