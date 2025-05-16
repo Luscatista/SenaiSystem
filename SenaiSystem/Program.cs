@@ -1,4 +1,5 @@
 using SenaiSystem.Context;
+using SenaiSystem.Interface;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Repositories;
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SenaiSystemContext>();
 
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddControllers();
 

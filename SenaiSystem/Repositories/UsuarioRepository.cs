@@ -11,31 +11,33 @@ namespace SenaiSystem.Repositories
         {
             _context = context;
         }
-        public Usuario? Atualizar(int id, Usuario usuario)
+        public void Atualizar(int id, Usuario usuario)
         {
             var usuarioEncontrado = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
 
-            if (usuarioEncontrado == null) return null;
+            if (usuarioEncontrado == null)
+            {
+                throw new Exception("Nota não encontrada.");
+            };
 
             usuarioEncontrado.Nome = usuario.Nome;
             usuarioEncontrado.Email = usuario.Email;
             usuarioEncontrado.Senha = usuario.Senha;
 
             _context.SaveChanges();
-
-            return usuarioEncontrado;
         }
-        public Usuario? Deletar(int id)
+        public void Deletar(int id)
         {
             var usuario = _context.Usuarios.Find(id);
 
-            if (usuario == null) return null;
+            if (usuario == null)
+            {
+                throw new Exception("Nota não encontrada.");
+            }
 
             _context.Usuarios.Remove(usuario);
 
             _context.SaveChanges();
-
-            return usuario;
         }
         public List<Usuario> ListarTodos()
         {
@@ -47,6 +49,13 @@ namespace SenaiSystem.Repositories
             _context.Usuarios.Add(usuario);
 
             _context.SaveChanges();
+        }
+
+        public Usuario? BuscarPorId(int id)
+        {
+            var usuario = _context.Usuarios.Find(id);
+            if (usuario == null) return null;
+            return usuario;
         }
     }
 }

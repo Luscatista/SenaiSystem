@@ -6,7 +6,8 @@ namespace SenaiSystem.Interface
     {
         List<Usuario> ListarTodos();
         void Cadastrar(Usuario usuario);
-        Usuario? Atualizar(int id, Usuario usuario);    
-        Usuario? Deletar(int id);
+        void Atualizar(int id, Usuario usuario);    
+        void Deletar(int id);
+        Usuario BuscarPorId(int id);
     }
 }
