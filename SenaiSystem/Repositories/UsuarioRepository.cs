@@ -1,4 +1,6 @@
-﻿using SenaiSystem.Context;
+﻿using Microsoft.AspNetCore.Mvc;
+using SenaiSystem.Context;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
 using SenaiSystem.Services;
@@ -63,5 +65,23 @@ namespace SenaiSystem.Repositories
             return usuario;
         }
 
+        public Usuario BuscarPorEmailSenha(string email, string senha)
+        {
+            var usuario = _context.Usuarios.FirstOrDefault(c => c.Email == email);
+
+            if (usuario == null) 
+                return null;
+
+            var passwordService = new PasswordService();
+
+            var resultado = passwordService.VerificarSenha(usuario, senha);
+
+            if(resultado == true)
+            {
+                return usuario;
+            }
+
+            return usuario;
+        }
     }
 }

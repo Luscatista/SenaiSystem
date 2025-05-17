@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
+using SenaiSystem.Services;
 
 namespace SenaiSystem.Controllers
 {
@@ -54,6 +56,24 @@ namespace SenaiSystem.Controllers
             {
                 return NotFound("Nota não encontrado.");
             }
+        }
+
+        [HttpPost("login")]
+
+        public IActionResult Login(LoginDto loginDto)
+        {
+
+            var usuario = _usuarioRepository.BuscarPorEmailSenha(loginDto.Email, loginDto.Senha);
+            if (usuario == null)
+            {
+                return Unauthorized("Dados inválidos.");
+            }
+
+            var tokenService = new TokenService();
+
+            var token = tokenService.GenerateToken(usuario.Email);
+
+            return Ok(token);
         }
     }
 }
