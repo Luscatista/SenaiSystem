@@ -1,3 +1,5 @@
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using SenaiSystem.Context;
 using SenaiSystem.Interface;
 using SenaiSystem.Interfaces;
@@ -14,7 +16,22 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ILembreteRepository, LembreteRepository>();
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateActor = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "ecommerce",
+            ValidAudience = "ecommerce",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kw%!wZ6rzv9V9yCg9WvZbbJgvs7US8Go%h66E22d"))
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddSwaggerGen();
 
@@ -47,5 +64,8 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();

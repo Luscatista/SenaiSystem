@@ -1,6 +1,7 @@
 ﻿using SenaiSystem.Context;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
+using SenaiSystem.Services;
 
 namespace SenaiSystem.Repositories
 {
@@ -46,6 +47,10 @@ namespace SenaiSystem.Repositories
 
         public void Cadastrar(Usuario usuario)
         {
+            var passwordService = new PasswordService();
+
+            usuario.Senha = passwordService.HashPassword(usuario);
+
             _context.Usuarios.Add(usuario);
 
             _context.SaveChanges();
@@ -57,5 +62,6 @@ namespace SenaiSystem.Repositories
             if (usuario == null) return null;
             return usuario;
         }
+
     }
 }
