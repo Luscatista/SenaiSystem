@@ -11,9 +11,11 @@ public partial class SenaiSystemContext : DbContext
     {
     }
 
-    public SenaiSystemContext(DbContextOptions<SenaiSystemContext> options)
+    private IConfiguration _configuration;
+    public SenaiSystemContext(DbContextOptions<SenaiSystemContext> options, IConfiguration confing)
         : base(options)
     {
+        _configuration = confing;
     }
 
     public virtual DbSet<AuditoriaGeral> AuditoriaGerals { get; set; }
@@ -29,8 +31,11 @@ public partial class SenaiSystemContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=tcp:senainotes134.database.windows.net,1433;Initial Catalog=SenaiSystem;Persist Security Info=False;User ID=BackendLogin;Password=senai@134;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+    {
+        var con = _configuration.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseSqlServer(con);
 
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AuditoriaGeral>(entity =>
