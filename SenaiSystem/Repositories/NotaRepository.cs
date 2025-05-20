@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SenaiSystem.Context;
+using SenaiSystem.context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 

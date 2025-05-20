@@ -1,9 +1,9 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using SenaiSystem.Context;
 using SenaiSystem.Interface;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Repositories;
+using SenaiSystem.context;
 
 var builder = WebApplication.CreateBuilder(args);
 
