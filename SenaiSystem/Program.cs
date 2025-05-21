@@ -7,7 +7,13 @@ using SenaiSystem.context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+
+    // Configuração para lidar com loopings entre tabelas
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 
 builder.Services.AddDbContext<SenaiSystemContext>();
 

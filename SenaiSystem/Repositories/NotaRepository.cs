@@ -2,6 +2,7 @@
 using SenaiSystem.context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Repositories;
 
@@ -12,9 +13,27 @@ public class NotaRepository : INotaRepository
     {
         _context = context;
     }
-    public List<Nota> ListarTodos()
+    public List<NotaViewModel> ListarTodos()
     {
-        return _context.Nota.ToList();
+        return _context.Nota
+            .Include(n => n.NotaCategoria)
+            .ThenInclude(nC => nC.IdCategoriaNavigation)
+            .Select(n => new NotaViewModel{
+                IdNota = n.IdNota,
+                Titulo = n.Titulo,
+                Imagem = n.Imagem,
+                Conteudo = n.Conteudo,
+                DataCriacao = n.DataCriacao,
+                DataModificacao = n.DataModificacao,
+                Arquivada = n.Arquivada,
+                Prioridade = n.Prioridade,
+                Categorias = n.NotaCategoria.Select(
+                    nC => new CategoriaViewModel
+                    {
+                        IdCategoria = nC.IdCategoriaNavigation.IdCategoria,
+                        Nome = nC.IdCategoriaNavigation.Nome
+                    }).ToList()
+            }).ToList();
     }
     public Nota? BuscarPorId(int id)
     {

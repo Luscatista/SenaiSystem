@@ -1,10 +1,11 @@
 ﻿using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Interfaces;
 
 public interface INotaRepository
 {
-    List<Nota> ListarTodos();
+    List<NotaViewModel> ListarTodos();
     Nota BuscarPorId(int id);
     void Cadastrar(Nota nota);
     void Atualizar(int id, Nota nota);
