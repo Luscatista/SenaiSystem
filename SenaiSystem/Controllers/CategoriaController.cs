@@ -37,6 +37,13 @@ public class CategoriaController : ControllerBase
         return Ok(_categoriasRepository.BuscarPorId(id));
     }
 
+    [HttpGet("buscar/{id}")]
+    [Authorize]
+    public IActionResult BuscarPorUsuario(int id)
+    {
+        return Ok(_categoriasRepository.BuscarPorId(id));
+    }
+
     [HttpPost]
     [Authorize]
     public IActionResult Cadastrar(Categoria categoria)
