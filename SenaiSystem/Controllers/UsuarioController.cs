@@ -28,8 +28,8 @@ namespace SenaiSystem.Controllers
         }
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Arquiva uma anotação",
-            Description = "Este endpoint cria usuários."
+            Summary = "Cria um usuário.(EXEMPLO)",
+            Description = "Este endpoint cria usuários.(EXEMPLO)"
 
         )]
         public IActionResult Cadastrar(Models.Usuario usuario)
