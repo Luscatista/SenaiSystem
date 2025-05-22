@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SenaiSystem.context;
+using SenaiSystem.Context;
 using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
@@ -107,5 +107,10 @@ public class NotaRepository : INotaRepository
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
         return nota;
+    }
+
+    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    {
+        throw new NotImplementedException();
     }
 }

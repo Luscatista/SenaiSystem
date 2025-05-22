@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SenaiSystem.context;
+using SenaiSystem.Context;
 using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;

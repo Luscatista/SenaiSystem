@@ -9,5 +9,9 @@ public partial class Categoria
 
     public string Nome { get; set; } = null!;
 
+    public int? IdUsuario { get; set; }
+
+    public virtual Usuario? IdUsuarioNavigation { get; set; }
+
     public virtual ICollection<NotaCategoria> NotaCategoria { get; set; } = new List<NotaCategoria>();
 }

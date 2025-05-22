@@ -1,4 +1,4 @@
-﻿using SenaiSystem.context;
+﻿using SenaiSystem.Context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 
