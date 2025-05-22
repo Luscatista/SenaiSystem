@@ -35,10 +35,9 @@ public class NotaController : ControllerBase
         return Ok(notas);
     }
 
-    [HttpPost]
-    [Authorize]
-   
-    ////public IActionResult Cadastrar(CadastroNotaDto nota)
+    //[HttpPost]
+    //[Authorize]
+    //public IActionResult Cadastrar(CadastroNotaDto nota)
     //{
     //    _notaRepository.Cadastrar(CadastroNotaDto);
     //    return Created();
@@ -75,7 +74,7 @@ public class NotaController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("notas/arquivadas/")]
 
     public IActionResult Arquivada(int id, Nota nota)
     {

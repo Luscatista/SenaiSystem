@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SenaiSystem.Models;
 
-namespace SenaiSystem.context;
+namespace SenaiSystem.Context;
 
 public partial class SenaiSystemContext : DbContext
 {
@@ -63,6 +63,10 @@ public partial class SenaiSystemContext : DbContext
             entity.Property(e => e.Nome)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Categoria)
+                .HasForeignKey(d => d.IdUsuario)
+                .HasConstraintName("FK__Categoria__IdUsu__14270015");
         });
 
         modelBuilder.Entity<Lembrete>(entity =>
@@ -75,7 +79,8 @@ public partial class SenaiSystemContext : DbContext
 
             entity.HasOne(d => d.IdNotaNavigation).WithMany(p => p.Lembretes)
                 .HasForeignKey(d => d.IdNota)
-                .HasConstraintName("FK__Lembrete__IdNota__619B8048");
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK__Lembrete__IdNota");
         });
 
         modelBuilder.Entity<NotaCategoria>(entity =>

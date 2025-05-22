@@ -3,7 +3,7 @@ using System.Text;
 using SenaiSystem.Interface;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Repositories;
-using SenaiSystem.context;
+using SenaiSystem.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
