@@ -108,4 +108,9 @@ public class NotaRepository : INotaRepository
         _context.SaveChanges();
         return nota;
     }
+
+    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    {
+        throw new NotImplementedException();
+    }
 }

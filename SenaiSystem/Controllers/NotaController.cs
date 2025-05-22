@@ -37,11 +37,12 @@ public class NotaController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public IActionResult Cadastrar(CadastroNotaDto nota)
-    {
-        _notaRepository.Cadastrar(CadastroNotaDto);
-        return Created();
-    }
+   
+    ////public IActionResult Cadastrar(CadastroNotaDto nota)
+    //{
+    //    _notaRepository.Cadastrar(CadastroNotaDto);
+    //    return Created();
+    //}
 
     [HttpPut]
     [Authorize]
