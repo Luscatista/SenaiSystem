@@ -23,10 +23,13 @@ namespace SenaiSystem.Repositories
             {
                 throw new Exception("Nota não encontrada.");
             };
+            var passwordService = new PasswordService();
 
             usuarioEncontrado.Nome = usuario.Nome;
             usuarioEncontrado.Email = usuario.Email;
             usuarioEncontrado.Senha = usuario.Senha;
+
+            usuarioEncontrado.Senha = passwordService.HashPassword(usuarioEncontrado);
 
             _context.SaveChanges();
         }

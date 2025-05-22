@@ -16,6 +16,11 @@ public class CategoriaRepository : ICategoriaRepository
     {
         return _context.Categoria.ToList();
     }
+    //public List<Categoria> ListarCategoriaPorUsuario()
+    //{
+    //    return _context.Categoria.Include(nC => nC.NotaCategoria).ToList();
+
+    //}
     public Categoria? BuscarPorId(int id)
     {
         return _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);

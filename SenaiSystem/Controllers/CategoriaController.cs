@@ -24,6 +24,12 @@ public class CategoriaController : ControllerBase
         return Ok(_categoriasRepository.ListarTodos());
     }
 
+    //[HttpGet("/buscar/Usuario")]
+    //public IActionResult ListarCategoriaPorUsuario()
+    //{
+    //    return Ok(_categoriasRepository.ListarCategoriaPorUsuario());
+    //}
+
     [HttpGet("{id}")]
     [Authorize]
     public IActionResult BuscarPorId(int id)
