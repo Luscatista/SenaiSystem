@@ -16,11 +16,6 @@ public class CategoriaRepository : ICategoriaRepository
     {
         return _context.Categoria.ToList();
     }
-    //public List<Categoria> ListarCategoriaPorUsuario()
-    //{
-    //    return _context.Categoria.Include(nC => nC.NotaCategoria).ToList();
-
-    //}
     public Categoria? BuscarPorId(int id)
     {
         return _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
@@ -54,5 +49,11 @@ public class CategoriaRepository : ICategoriaRepository
 
         _context.Categoria.Remove(categoria);
         _context.SaveChanges();
+    }
+
+    public Categoria BuscarPorUsuario(int id)
+    {
+        var categorias = _context.Categoria.FirstOrDefault(c => c.IdUsuario == id); 
+        return categorias;
     }
 }
