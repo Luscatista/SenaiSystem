@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
@@ -19,6 +20,7 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ListarTodos()
         {
             var usuario = _usuarioRepository.ListarTodos();
@@ -26,12 +28,14 @@ namespace SenaiSystem.Controllers
             return Ok(usuario);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Cadastrar(Models.Usuario usuario)
         {
             _usuarioRepository.Cadastrar(usuario);
             return Created("Usuario cadastrado com sucesso", usuario);
         }
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Atualizar(int id, Models.Usuario usuario)
         {
             try
@@ -45,6 +49,7 @@ namespace SenaiSystem.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Deletar(int id)
         {
             try
@@ -59,6 +64,7 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpPost("login")]
+        
 
         public IActionResult Login(LoginDto loginDto)
         {

@@ -4,6 +4,7 @@ using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
 using SenaiSystem.Services;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Repositories
 {
@@ -42,9 +43,17 @@ namespace SenaiSystem.Repositories
 
             _context.SaveChanges();
         }
-        public List<Usuario> ListarTodos()
+        public List<ListarUsuarioViewModel> ListarTodos()
         {
-            return _context.Usuarios.ToList();
+            return _context.Usuarios.Select(
+                l => new ListarUsuarioViewModel
+                {
+                    Nome = l.Nome,
+                    IdUsuario = l.IdUsuario,
+                    Email = l.Email
+                })
+                .OrderBy(l => l.Nome)
+                .ToList();
         }
 
         public void Cadastrar(Usuario usuario)
@@ -65,7 +74,7 @@ namespace SenaiSystem.Repositories
             return usuario;
         }
 
-        public Usuario BuscarPorEmailSenha(string email, string senha)
+        public Usuario? BuscarPorEmailSenha(string email, string senha)
         {
             var usuario = _context.Usuarios.FirstOrDefault(c => c.Email == email);
 
@@ -75,6 +84,7 @@ namespace SenaiSystem.Repositories
             var passwordService = new PasswordService();
 
             var resultado = passwordService.VerificarSenha(usuario, senha);
+
 
             if(resultado == true)
             {

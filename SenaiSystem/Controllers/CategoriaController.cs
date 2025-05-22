@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
@@ -17,18 +18,21 @@ public class CategoriaController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult ListarTodos()
     {
         return Ok(_categoriasRepository.ListarTodos());
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public IActionResult BuscarPorId(int id)
     {
         return Ok(_categoriasRepository.BuscarPorId(id));
     }
 
     [HttpPost]
+    [Authorize]
     public IActionResult Cadastrar(Categoria categoria)
     {
         _categoriasRepository.Cadastrar(categoria);
@@ -36,6 +40,7 @@ public class CategoriaController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public IActionResult Editar(int id, Categoria categoria)
     {
         try
@@ -50,6 +55,7 @@ public class CategoriaController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public IActionResult Deletar(int id)
     {
         try

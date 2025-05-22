@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenaiSystem.context;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
@@ -8,10 +9,12 @@ namespace SenaiSystem.Repositories;
 
 public class NotaRepository : INotaRepository
 {
+    private readonly ICategoriaRepository _categoriaRepository;
     private readonly SenaiSystemContext _context;
-    public NotaRepository(SenaiSystemContext context)
+    public NotaRepository(SenaiSystemContext context, ICategoriaRepository categoriaRepository)
     {
         _context = context;
+        _categoriaRepository = categoriaRepository;
     }
     public List<NotaViewModel> ListarTodos()
     {
@@ -39,11 +42,31 @@ public class NotaRepository : INotaRepository
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
     }
-    public void Cadastrar(Nota nota)
-    {
-        _context.Nota.Add(nota);
-        _context.SaveChanges();
-    }
+    //public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    //{
+    //    //1- Percorrer a lista de categorias
+    //    //1.1 - Verificar se a categoria existe
+    //    //1.2 - Se ela ja existe vou ter que pegar o Id dela
+    //    //1.2 - Se não existe, vou ter que cadastrar ela
+
+
+    //    /*List<int> IdCategorias = new List<int>();
+
+    //    foreach (var item in nota.Categorias)
+    //    {
+    //        var tag = _categoriaRepository.BuscarUsuarioPorId(item.IdCategoria, item); 
+
+    //        if (tag = null)
+    //        {
+    //            // TODO: Cadastrar a categoria
+    //        }
+
+    //        IdCategorias.Add(tag.IdCategoria);
+            
+    //    }
+
+
+    //}
     public void Atualizar(int id, Nota nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
@@ -73,5 +96,16 @@ public class NotaRepository : INotaRepository
 
         _context.Nota.Remove(nota);
         _context.SaveChanges();
+    }
+    public Nota? Arquivada(int id)
+    {
+        var nota = _context.Nota.Find(id);
+        if (nota == null) 
+        {
+            throw new ArgumentNullException("Nota não encontrada.");
+        }
+        nota.Arquivada = !nota.Arquivada;
+        _context.SaveChanges();
+        return nota;
     }
 }

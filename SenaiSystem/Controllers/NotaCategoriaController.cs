@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SenaiSystem.Interfaces;
 
@@ -15,12 +16,14 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ListarTodos()
         {
             return Ok(_notaCategoriaRepository.ListarTodos());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult Details(int id) 
         {
             var notaCategoria = _notaCategoriaRepository.BuscarPorId(id);
@@ -31,6 +34,7 @@ namespace SenaiSystem.Controllers
             return Ok(notaCategoria);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Cadastrar(Models.NotaCategoria notaCategoria)
         {
             _notaCategoriaRepository.Cadastrar(notaCategoria);
@@ -38,6 +42,7 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult Editar(int id, Models.NotaCategoria notaCategoria)
         {
             try
@@ -51,6 +56,7 @@ namespace SenaiSystem.Controllers
             }
         }
         [HttpDelete]
+        [Authorize]
         public IActionResult Deletar(int id)
         {
             try

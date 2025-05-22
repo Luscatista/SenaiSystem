@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 
@@ -16,11 +18,13 @@ public class NotaController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult ListarTodos()
     {
         return Ok(_notaRepository.ListarTodos());
     }
     [HttpGet("{id}")]
+    [Authorize]
     public IActionResult BuscarPorId(int id)
     {
         var notas = _notaRepository.BuscarPorId(id);
@@ -32,13 +36,15 @@ public class NotaController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Cadastrar(Nota nota)
+    [Authorize]
+    public IActionResult Cadastrar(CadastroNotaDto nota)
     {
-        _notaRepository.Cadastrar(nota);
+        _notaRepository.Cadastrar(CadastroNotaDto);
         return Created();
     }
 
     [HttpPut]
+    [Authorize]
 
     public IActionResult Editar(int id, Nota nota)
     {
@@ -53,6 +59,7 @@ public class NotaController : ControllerBase
         }
     }
     [HttpDelete]
+    [Authorize]
 
     public IActionResult Deletar(int id)
     {
@@ -61,9 +68,25 @@ public class NotaController : ControllerBase
             _notaRepository.Deletar(id);
             return NoContent();
         }
+        catch (ArgumentNullException)
+        {
+            return NotFound("Nota não encontrado.");
+        }
+    }
+
+    [HttpPut]
+
+    public IActionResult Arquivada(int id, Nota nota)
+    {
+        try
+        {
+            _notaRepository.Arquivada(id);
+            return Ok(nota);
+        }
         catch (Exception)
         {
             return NotFound("Nota não encontrado.");
         }
     }
+
 }
