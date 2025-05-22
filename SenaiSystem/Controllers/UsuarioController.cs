@@ -4,6 +4,7 @@ using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
 using SenaiSystem.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SenaiSystem.Controllers
 {
@@ -26,6 +27,11 @@ namespace SenaiSystem.Controllers
             return Ok(usuario);
         }
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Arquiva uma anotação",
+            Description = "Este endpoint cria usuários."
+
+        )]
         public IActionResult Cadastrar(Models.Usuario usuario)
         {
             _usuarioRepository.Cadastrar(usuario);
