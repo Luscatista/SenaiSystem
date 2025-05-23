@@ -21,7 +21,7 @@ namespace SenaiSystem.Repositories
 
             if (usuarioEncontrado == null)
             {
-                throw new Exception("Nota não encontrada.");
+                throw new ArgumentNullException("Nota não encontrada.");
             };
             var passwordService = new PasswordService();
 
@@ -39,7 +39,7 @@ namespace SenaiSystem.Repositories
 
             if (usuario == null)
             {
-                throw new Exception("Nota não encontrada.");
+                throw new ArgumentNullException("Nota não encontrada.");
             }
 
             _context.Usuarios.Remove(usuario);
@@ -73,7 +73,10 @@ namespace SenaiSystem.Repositories
         public Usuario? BuscarPorId(int id)
         {
             var usuario = _context.Usuarios.Find(id);
-            if (usuario == null) return null;
+            if (usuario == null)
+            {
+                throw new ArgumentNullException("Nota não encontrada.");
+            }
             return usuario;
         }
 
@@ -81,8 +84,10 @@ namespace SenaiSystem.Repositories
         {
             var usuario = _context.Usuarios.FirstOrDefault(c => c.Email == email);
 
-            if (usuario == null) 
-                return null;
+            if (usuario == null)
+            {
+                throw new ArgumentNullException("Nota não encontrada.");
+            }
 
             var passwordService = new PasswordService();
 

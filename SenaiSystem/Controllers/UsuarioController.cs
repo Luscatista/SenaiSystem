@@ -85,7 +85,11 @@ namespace SenaiSystem.Controllers
 
             var token = tokenService.GenerateToken(usuario.Email);
 
-            return Ok(token);
+            return Ok(new
+            {
+                token,
+                usuario
+            });
         }
     }
 }

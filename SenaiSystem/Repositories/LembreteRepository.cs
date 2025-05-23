@@ -1,6 +1,7 @@
 ﻿using SenaiSystem.Context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Repositories;
 
@@ -11,9 +12,16 @@ public class LembreteRepository : ILembreteRepository
     {
         _context = context;
     }
-    public List<Lembrete> ListarTodos()
+    public List<ListarLembreteViewModel> ListarTodos()
     {
-        return _context.Lembretes.ToList();
+        var lembretes = _context.Lembretes
+            .Select(l => new ListarLembreteViewModel
+            {
+                IdLembrete = l.IdLembrete,
+                DataHora = l.DataHora,
+            })
+            .ToList();
+        return lembretes;
     }
     public Lembrete? BuscarPorId(int id)
     {
@@ -29,7 +37,7 @@ public class LembreteRepository : ILembreteRepository
         var lembreteAtual = _context.Lembretes.FirstOrDefault(l => l.IdLembrete == id);
         if (lembreteAtual == null)
         {
-            throw new Exception("Lembrete não encontrado.");
+            throw new ArgumentNullException("Lembrete não encontrado.");
         }
 
         lembreteAtual.IdNota = lembrete.IdNota;
@@ -42,7 +50,7 @@ public class LembreteRepository : ILembreteRepository
         var lembrete = _context.Lembretes.Find(id);
         if (lembrete == null)
         {
-            throw new Exception("Lembrete não encontrada.");
+            throw new ArgumentNullException("Lembrete não encontrada.");
         }
 
         _context.Lembretes.Remove(lembrete);

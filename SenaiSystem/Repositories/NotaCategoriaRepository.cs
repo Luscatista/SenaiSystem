@@ -1,6 +1,7 @@
 ﻿using SenaiSystem.Context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Repositories
 {
@@ -17,7 +18,7 @@ namespace SenaiSystem.Repositories
             var NotaCategoriaEncontrado = _context.NotaCategoria.FirstOrDefault(n => n.IdNotaCategoria == id);
             if (NotaCategoriaEncontrado == null)
             {
-                throw new Exception("Nota não encontrada.");
+                throw new ArgumentNullException("Nota não encontrada.");
             }
 
             NotaCategoriaEncontrado.IdCategoria = notaCategoria.IdCategoria;
@@ -31,7 +32,10 @@ namespace SenaiSystem.Repositories
         public NotaCategoria? BuscarPorId(int id)
         {
             var notaCategoria = _context.NotaCategoria.Find(id);
-            if (notaCategoria == null) return null;
+            if (notaCategoria == null)
+            {
+                throw new ArgumentNullException("Nota não encontrada.");
+            }
             return notaCategoria; ;
         }
 
@@ -48,7 +52,7 @@ namespace SenaiSystem.Repositories
 
             if (notaCategoria == null)
             {
-                throw new Exception("Nota não encontrada.");
+                throw new ArgumentNullException("Nota não encontrada.");
             }
 
             _context.NotaCategoria.Remove(notaCategoria);
@@ -56,9 +60,16 @@ namespace SenaiSystem.Repositories
             _context.SaveChanges(); ;
         }
 
-        public List<NotaCategoria> ListarTodos()
+        public List<ListarNotaCategoriaViewModel> ListarTodos()
         {
-                return _context.NotaCategoria.ToList(); ;
+            var notaCategorias = _context.NotaCategoria
+                .Select(n => new ListarNotaCategoriaViewModel
+                {
+                    IdNotaCategoria = n.IdNotaCategoria,
+                    IdNota = n.IdNota,
+                })
+                .ToList();
+            return notaCategorias;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SenaiSystem.ViewModels;
 
-public class NotaViewModel
+public class ListarNotaViewModel
 {
     public int IdNota { get; set; }
 

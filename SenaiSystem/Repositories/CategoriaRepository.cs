@@ -2,6 +2,7 @@
 using SenaiSystem.Context;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Repositories;
 
@@ -12,9 +13,16 @@ public class CategoriaRepository : ICategoriaRepository
     {
         _context = context;
     }
-    public List<Categoria> ListarTodos()
+    public List<ListarCategoriaViewModel> ListarTodos()
     {
-        return _context.Categoria.ToList();
+        var categorias = _context.Categoria
+            .Select(c => new ListarCategoriaViewModel
+            {
+                IdCategoria = c.IdCategoria,
+                Nome = c.Nome
+            })
+            .ToList();
+        return categorias;
     }
     public Categoria? BuscarPorId(int id)
     {
@@ -32,7 +40,7 @@ public class CategoriaRepository : ICategoriaRepository
         var categoriaAtual = _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
         if (categoriaAtual == null)
         {
-            throw new Exception("Categoria não encontrada.");
+            throw new ArgumentNullException("Categoria não encontrada.");
         }
 
         categoriaAtual.Nome = categoria.Nome;
@@ -44,7 +52,7 @@ public class CategoriaRepository : ICategoriaRepository
         var categoria = _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
         if (categoria == null)
         {
-            throw new Exception("Categoria não encontrada.");
+            throw new ArgumentNullException("Categoria não encontrada.");
         }
 
         _context.Categoria.Remove(categoria);

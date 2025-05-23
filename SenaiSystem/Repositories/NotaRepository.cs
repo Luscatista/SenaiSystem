@@ -16,12 +16,12 @@ public class NotaRepository : INotaRepository
         _context = context;
         _categoriaRepository = categoriaRepository;
     }
-    public List<NotaViewModel> ListarTodos()
+    public List<ListarNotaViewModel> ListarTodos()
     {
         return _context.Nota
             .Include(n => n.NotaCategoria)
             .ThenInclude(nC => nC.IdCategoriaNavigation)
-            .Select(n => new NotaViewModel
+            .Select(n => new ListarNotaViewModel
             {
                 IdNota = n.IdNota,
                 Titulo = n.Titulo,
@@ -118,7 +118,7 @@ public class NotaRepository : INotaRepository
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (notaAtual == null)
         {
-            throw new Exception("nota não encontrada.");
+            throw new ArgumentNullException("nota não encontrada.");
         }
 
         notaAtual.IdUsuario = nota.IdUsuario;
@@ -137,7 +137,7 @@ public class NotaRepository : INotaRepository
         var nota = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (nota == null)
         {
-            throw new Exception("nota não encontrada.");
+            throw new ArgumentNullException("nota não encontrada.");
         }
 
         _context.Nota.Remove(nota);
@@ -156,13 +156,13 @@ public class NotaRepository : INotaRepository
     }
 
 
-    public List<NotaViewModel> BuscarPorUsuario(int id)
+    public List<ListarNotaViewModel> BuscarPorUsuario(int id)
     {
         return _context.Nota
            .Include(n => n.NotaCategoria)
            .ThenInclude(nC => nC.IdCategoriaNavigation)
            .Where(n => n.IdUsuario == id)
-           .Select(n => new NotaViewModel
+           .Select(n => new ListarNotaViewModel
            {
                IdNota = n.IdNota,
                Titulo = n.Titulo,
@@ -182,8 +182,13 @@ public class NotaRepository : INotaRepository
     }
     
 
-    //public List<Nota>? ListarNotasPorCategoria(int id)
-    //{
-    //    _context.Nota.Where(n => n.IdUsuario == id)
-    //}
+    public List<Nota>? BuscarPorInformacao(string texto)
+    {
+        var notas = _context.Nota
+            .Include(n => n.NotaCategoria)
+            .ThenInclude(nC => nC.IdCategoriaNavigation)
+            .Where(n => n.Titulo.Contains(texto) || n.Conteudo.Contains(texto) || n.NotaCategoria.Any(nC => nC.IdCategoriaNavigation.Nome.Contains(texto)))
+            .ToList();
+        return notas;
+    }
 }

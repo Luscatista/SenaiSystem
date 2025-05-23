@@ -100,5 +100,14 @@ public class NotaController : ControllerBase
         }
         return Ok(notas);
     }
-
+    [HttpGet("Buscar/Notas")]
+    public IActionResult BuscarPorInformacao(string texto)
+    {
+        var notas = _notaRepository.BuscarPorInformacao(texto);
+        if (notas.Count == 0)
+        {
+            return NotFound("Nota não encontrada.");
+        }
+        return Ok(notas);
+    }
 }

@@ -1,9 +1,10 @@
 ﻿using SenaiSystem.Models;
+using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Interfaces;
 public interface ICategoriaRepository
 {
-    List<Categoria> ListarTodos();
+    List<ListarCategoriaViewModel> ListarTodos();
     Categoria? BuscarPorId(int id);
     //List<Categoria> ListarPorUsuario(int id);
     Categoria? BuscarPorUsuario(int id, string nomeNota);
