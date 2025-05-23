@@ -118,7 +118,7 @@ public class NotaRepository : INotaRepository
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (notaAtual == null)
         {
-            throw new Exception("Nota não encontrada.");
+            throw new Exception("nota não encontrada.");
         }
 
         notaAtual.IdUsuario = nota.IdUsuario;
@@ -137,7 +137,7 @@ public class NotaRepository : INotaRepository
         var nota = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (nota == null)
         {
-            throw new Exception("Nota não encontrada.");
+            throw new Exception("nota não encontrada.");
         }
 
         _context.Nota.Remove(nota);
@@ -148,7 +148,7 @@ public class NotaRepository : INotaRepository
         var nota = _context.Nota.Find(id);
         if (nota == null)
         {
-            throw new ArgumentNullException("Nota não encontrada.");
+            throw new ArgumentNullException("nota não encontrada.");
         }
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
@@ -181,4 +181,9 @@ public class NotaRepository : INotaRepository
            }).ToList();
     }
     
+
+    //public List<Nota>? ListarNotasPorCategoria(int id)
+    //{
+    //    _context.Nota.Where(n => n.IdUsuario == id)
+    //}
 }
