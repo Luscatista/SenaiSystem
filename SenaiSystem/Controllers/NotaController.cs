@@ -89,4 +89,16 @@ public class NotaController : ControllerBase
         }
     }
 
+    [HttpGet("notas/Usuario")]
+
+    public IActionResult BuscarPorUsuario(int id)
+    {
+        var notas = _notaRepository.BuscarPorUsuario(id);
+        if (notas == null)
+        {
+            return NotFound("Nota não encontrada.");
+        }
+        return Ok(notas);
+    }
+
 }
