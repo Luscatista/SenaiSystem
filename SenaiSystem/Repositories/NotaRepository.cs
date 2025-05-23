@@ -43,30 +43,76 @@ public class NotaRepository : INotaRepository
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
     }
+    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    {
+        //1- percorrer a lista de categorias
+        //1.1 - verificar se a categoria existe
+        //1.2 - se ela ja existe vou ter que pegar o id dela
+        //1.2 - se não existe, vou ter que cadastrar ela
 
-    //public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
-    //{
-    //    //1- Percorrer a lista de categorias
-    //    //1.1 - Verificar se a categoria existe
-    //    //1.2 - Se ela ja existe vou ter que pegar o Id dela
-    //    //1.2 - Se não existe, vou ter que cadastrar ela
+
+        List<int> idCategorias = new List<int>();
 
 
-    //    list<int> idcategorias = new list<int>();
+        //Percorrer a lista de categorias
+        foreach (var item in nota.Categorias)
+        {
+            //Verificar se a categoria existe
+            var tag = _categoriaRepository.BuscarPorUsuario(nota.IdUsuario, item);
 
-    //    foreach (var item in nota.categorias)
-    //    {
-    //        var tag = _categoriarepository.buscarusuarioporid(item.idcategoria, item);
+            //Caso nao exista - Crio uma nova categoria
+            if (tag == null)
+            {
+                tag = new Categoria
+                {
+                    Nome = item,
+                    IdUsuario = nota.IdUsuario
+                };
 
-    //        if (tag = null)
-    //        {
-    //        todo: cadastrar a categoria
-    //        }
+                _context.Add(tag);
+                _context.SaveChanges();
 
-    //        idcategorias.add(tag.idcategoria);
+                // todo: cadastrar a categoria
+            }
 
-    //    }
-    //}
+            idCategorias.Add(tag.IdCategoria);
+
+            //Cadastrar a categoria
+
+            var novaNota = new Nota
+            {
+                 Titulo = nota.Titulo,
+                Imagem = nota.Imagem,
+                Conteudo = nota.Conteudo,
+                DataCriacao = DateTime.Now,
+                DataModificacao = DateTime.Now,
+                Arquivada = false,
+                Prioridade = nota.Prioridade,
+                IdUsuario = nota.IdUsuario
+            };
+
+            _context.Add(novaNota);
+            _context.SaveChanges();
+
+
+            // Cadastrar a notaCategoria 
+
+            foreach (var id in idCategorias)
+            {
+                var notaCategoria = new NotaCategoria
+                {
+                    IdNota = novaNota.IdNota,
+                    IdCategoria = id
+                };
+                _context.Add(notaCategoria);
+                _context.SaveChanges();
+            }
+
+            
+        }
+
+        return nota;
+    }
     public void Atualizar(int id, Nota nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
@@ -107,10 +153,5 @@ public class NotaRepository : INotaRepository
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
         return nota;
-    }
-
-    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
-    {
-        throw new Exception();
     }
 }

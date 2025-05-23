@@ -21,7 +21,7 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        
         public IActionResult ListarTodos()
         {
             var usuario = _usuarioRepository.ListarTodos();
@@ -29,7 +29,7 @@ namespace SenaiSystem.Controllers
             return Ok(usuario);
         }
         [HttpPost]
-        [Authorize]
+        
         [SwaggerOperation(
             Summary = "Cria um usuário.(EXEMPLO)",
             Description = "Este endpoint cria usuários.(EXEMPLO)"
@@ -41,7 +41,7 @@ namespace SenaiSystem.Controllers
             return Created("Usuario cadastrado com sucesso", usuario);
         }
         [HttpPut("{id}")]
-        [Authorize]
+        
         public IActionResult Atualizar(int id, Models.Usuario usuario)
         {
             try
@@ -55,7 +55,7 @@ namespace SenaiSystem.Controllers
             }
         }
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public IActionResult Deletar(int id)
         {
             try

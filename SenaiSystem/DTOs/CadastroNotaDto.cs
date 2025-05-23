@@ -2,7 +2,7 @@
 {
     public class CadastroNotaDto
     {
-        public int? IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         public string Titulo { get; set; } = null!;
 
