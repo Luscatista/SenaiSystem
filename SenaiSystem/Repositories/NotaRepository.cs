@@ -154,4 +154,9 @@ public class NotaRepository : INotaRepository
         _context.SaveChanges();
         return nota;
     }
+
+    //public List<Nota>? ListarNotasPorCategoria(int id)
+    //{
+    //    _context.Nota.Where(n => n.IdUsuario == id)
+    //}
 }

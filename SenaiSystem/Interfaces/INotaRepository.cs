@@ -8,6 +8,8 @@ public interface INotaRepository
 {
     List<NotaViewModel> ListarTodos();
     Nota? BuscarPorId(int id);
+
+    //List<Nota>? ListarNotasPorCategoria(int id); 
     CadastroNotaDto? Cadastrar(CadastroNotaDto nota);
     void Atualizar(int id, Nota nota);
     void Deletar(int id);

@@ -53,7 +53,8 @@ builder.Services.AddCors(
             policy =>
             {
                 //TODO: Alterar link para o Frontend
-                policy.WithOrigins("http://localhost:5500");
+                policy.WithOrigins("http://localhost:5500",
+                    "http://127.0.0.1:5173");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             }
