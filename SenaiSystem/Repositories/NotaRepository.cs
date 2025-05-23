@@ -21,7 +21,8 @@ public class NotaRepository : INotaRepository
         return _context.Nota
             .Include(n => n.NotaCategoria)
             .ThenInclude(nC => nC.IdCategoriaNavigation)
-            .Select(n => new NotaViewModel{
+            .Select(n => new NotaViewModel
+            {
                 IdNota = n.IdNota,
                 Titulo = n.Titulo,
                 Imagem = n.Imagem,
@@ -42,6 +43,7 @@ public class NotaRepository : INotaRepository
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
     }
+
     //public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
     //{
     //    //1- Percorrer a lista de categorias
@@ -50,29 +52,27 @@ public class NotaRepository : INotaRepository
     //    //1.2 - Se não existe, vou ter que cadastrar ela
 
 
-    //    /*List<int> IdCategorias = new List<int>();
+    //    list<int> idcategorias = new list<int>();
 
-    //    foreach (var item in nota.Categorias)
+    //    foreach (var item in nota.categorias)
     //    {
-    //        var tag = _categoriaRepository.BuscarUsuarioPorId(item.IdCategoria, item); 
+    //        var tag = _categoriarepository.buscarusuarioporid(item.idcategoria, item);
 
     //        if (tag = null)
     //        {
-    //            // TODO: Cadastrar a categoria
+    //        todo: cadastrar a categoria
     //        }
 
-    //        IdCategorias.Add(tag.IdCategoria);
-            
+    //        idcategorias.add(tag.idcategoria);
+
     //    }
-
-
     //}
     public void Atualizar(int id, Nota nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (notaAtual == null)
         {
-            throw new Exception("Nota não encontrada.");
+            throw new Exception("nota não encontrada.");
         }
 
         notaAtual.IdUsuario = nota.IdUsuario;
@@ -91,7 +91,7 @@ public class NotaRepository : INotaRepository
         var nota = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (nota == null)
         {
-            throw new Exception("Nota não encontrada.");
+            throw new Exception("nota não encontrada.");
         }
 
         _context.Nota.Remove(nota);
@@ -100,9 +100,9 @@ public class NotaRepository : INotaRepository
     public Nota? Arquivada(int id)
     {
         var nota = _context.Nota.Find(id);
-        if (nota == null) 
+        if (nota == null)
         {
-            throw new ArgumentNullException("Nota não encontrada.");
+            throw new ArgumentNullException("nota não encontrada.");
         }
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
@@ -111,6 +111,6 @@ public class NotaRepository : INotaRepository
 
     public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
     {
-        throw new NotImplementedException();
+        throw new Exception();
     }
 }
