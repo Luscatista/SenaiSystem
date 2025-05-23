@@ -12,7 +12,7 @@ public class CategoriaRepository : ICategoriaRepository
     {
         _context = context;
     }
-    public List<Categoria> ListarTodos()
+    public List<Categoria>? ListarTodos()
     {
         return _context.Categoria.ToList();
     }
@@ -32,10 +32,11 @@ public class CategoriaRepository : ICategoriaRepository
         var categoriaAtual = _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
         if (categoriaAtual == null)
         {
-            throw new Exception("Categoria não encontrada.");
+            throw new ArgumentException("Categoria não encontrada.");
         }
 
         categoriaAtual.Nome = categoria.Nome;
+        categoriaAtual.IdUsuario = categoria.IdUsuario;
 
         _context.SaveChanges();
     }
@@ -53,7 +54,23 @@ public class CategoriaRepository : ICategoriaRepository
 
     public Categoria? BuscarPorUsuario(int id, string nomeNota)
     {
-        var categorias = _context.Categoria.FirstOrDefault(c => c.IdUsuario == id && c.Nome == nomeNota); 
+        var categorias = _context.Categoria.FirstOrDefault(c => c.IdUsuario == id && c.Nome == nomeNota);
         return categorias;
+    }
+
+    public List<Categoria>? ListarCategoriaPorUsuario(int id)
+    {
+        var categorias = _context.Categoria.ToList();
+        List<Categoria> categoriasUsuario = new();
+
+        foreach (var item in categorias)
+        {
+            if (item.IdUsuario == id)
+            {
+                categoriasUsuario.Add(item);
+            }
+        }
+
+        return categoriasUsuario;
     }
 }

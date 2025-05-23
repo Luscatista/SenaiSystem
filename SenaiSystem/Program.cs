@@ -32,8 +32,8 @@ builder.Services.AddAuthentication("Bearer")
             ValidateActor = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "ecommerce",
-            ValidAudience = "ecommerce",
+            ValidIssuer = "senaiSystem",
+            ValidAudience = "senaiSystem",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kw%!wZ6rzv9V9yCg9WvZbbJgvs7US8Go%h66E22d"))
         };
     });

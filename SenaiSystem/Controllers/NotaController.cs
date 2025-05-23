@@ -16,7 +16,7 @@ public class NotaController : ControllerBase
     {
         _notaRepository = notaRepository;
     }
-
+    [Authorize]
     [HttpGet]
     
     public IActionResult ListarTodos()

@@ -23,11 +23,11 @@ public class CategoriaController : ControllerBase
         return Ok(_categoriasRepository.ListarTodos());
     }
 
-    //[HttpGet("/buscar/Usuario")]
-    //public IActionResult ListarCategoriaPorUsuario()
-    //{
-    //    return Ok(_categoriasRepository.ListarCategoriaPorUsuario());
-    //}
+    [HttpGet("/buscar/Usuario")]
+    public IActionResult ListarCategoriaPorUsuario(int id)
+    {
+        return Ok(_categoriasRepository.ListarCategoriaPorUsuario(id));
+    }
 
     [HttpGet("{id}")]
     
