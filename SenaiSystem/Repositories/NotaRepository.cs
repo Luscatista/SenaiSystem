@@ -21,7 +21,8 @@ public class NotaRepository : INotaRepository
         return _context.Nota
             .Include(n => n.NotaCategoria)
             .ThenInclude(nC => nC.IdCategoriaNavigation)
-            .Select(n => new NotaViewModel{
+            .Select(n => new NotaViewModel
+            {
                 IdNota = n.IdNota,
                 Titulo = n.Titulo,
                 Imagem = n.Imagem,
@@ -42,31 +43,76 @@ public class NotaRepository : INotaRepository
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
     }
-    //public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
-    //{
-    //    //1- Percorrer a lista de categorias
-    //    //1.1 - Verificar se a categoria existe
-    //    //1.2 - Se ela ja existe vou ter que pegar o Id dela
-    //    //1.2 - Se não existe, vou ter que cadastrar ela
+    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    {
+        //1- percorrer a lista de categorias
+        //1.1 - verificar se a categoria existe
+        //1.2 - se ela ja existe vou ter que pegar o id dela
+        //1.2 - se não existe, vou ter que cadastrar ela
 
 
-    //    /*List<int> IdCategorias = new List<int>();
+        List<int> idCategorias = new List<int>();
 
-    //    foreach (var item in nota.Categorias)
-    //    {
-    //        var tag = _categoriaRepository.BuscarUsuarioPorId(item.IdCategoria, item); 
 
-    //        if (tag = null)
-    //        {
-    //            // TODO: Cadastrar a categoria
-    //        }
+        //Percorrer a lista de categorias
+        foreach (var item in nota.Categorias)
+        {
+            //Verificar se a categoria existe
+            var tag = _categoriaRepository.BuscarPorUsuario(nota.IdUsuario, item);
 
-    //        IdCategorias.Add(tag.IdCategoria);
+            //Caso nao exista - Crio uma nova categoria
+            if (tag == null)
+            {
+                tag = new Categoria
+                {
+                    Nome = item,
+                    IdUsuario = nota.IdUsuario
+                };
+
+                _context.Add(tag);
+                _context.SaveChanges();
+
+                // todo: cadastrar a categoria
+            }
+
+            idCategorias.Add(tag.IdCategoria);
+
+            //Cadastrar a categoria
+
+            var novaNota = new Nota
+            {
+                 Titulo = nota.Titulo,
+                Imagem = nota.Imagem,
+                Conteudo = nota.Conteudo,
+                DataCriacao = DateTime.Now,
+                DataModificacao = DateTime.Now,
+                Arquivada = false,
+                Prioridade = nota.Prioridade,
+                IdUsuario = nota.IdUsuario
+            };
+
+            _context.Add(novaNota);
+            _context.SaveChanges();
+
+
+            // Cadastrar a notaCategoria 
+
+            foreach (var id in idCategorias)
+            {
+                var notaCategoria = new NotaCategoria
+                {
+                    IdNota = novaNota.IdNota,
+                    IdCategoria = id
+                };
+                _context.Add(notaCategoria);
+                _context.SaveChanges();
+            }
+
             
-    //    }
+        }
 
-
-    //}
+        return nota;
+    }
     public void Atualizar(int id, Nota nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
@@ -100,17 +146,12 @@ public class NotaRepository : INotaRepository
     public Nota? Arquivada(int id)
     {
         var nota = _context.Nota.Find(id);
-        if (nota == null) 
+        if (nota == null)
         {
             throw new ArgumentNullException("Nota não encontrada.");
         }
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
         return nota;
-    }
-
-    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
-    {
-        throw new NotImplementedException();
     }
 }

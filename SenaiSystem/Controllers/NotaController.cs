@@ -18,13 +18,13 @@ public class NotaController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    
     public IActionResult ListarTodos()
     {
         return Ok(_notaRepository.ListarTodos());
     }
     [HttpGet("{id}")]
-    [Authorize]
+    
     public IActionResult BuscarPorId(int id)
     {
         var notas = _notaRepository.BuscarPorId(id);
@@ -35,16 +35,16 @@ public class NotaController : ControllerBase
         return Ok(notas);
     }
 
-    //[HttpPost]
-    //[Authorize]
-    //public IActionResult Cadastrar(CadastroNotaDto nota)
-    //{
-    //    _notaRepository.Cadastrar(CadastroNotaDto);
-    //    return Created();
-    //}
+    [HttpPost]
+    
+    public IActionResult Cadastrar(CadastroNotaDto nota)
+    {
+        _notaRepository.Cadastrar(nota);
+        return Created();
+    }
 
     [HttpPut]
-    [Authorize]
+    
 
     public IActionResult Editar(int id, Nota nota)
     {
@@ -59,7 +59,7 @@ public class NotaController : ControllerBase
         }
     }
     [HttpDelete]
-    [Authorize]
+    
 
     public IActionResult Deletar(int id)
     {

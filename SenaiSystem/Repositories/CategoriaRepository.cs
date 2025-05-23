@@ -51,9 +51,9 @@ public class CategoriaRepository : ICategoriaRepository
         _context.SaveChanges();
     }
 
-    public Categoria BuscarPorUsuario(int id)
+    public Categoria? BuscarPorUsuario(int id, string nomeNota)
     {
-        var categorias = _context.Categoria.FirstOrDefault(c => c.IdUsuario == id); 
+        var categorias = _context.Categoria.FirstOrDefault(c => c.IdUsuario == id && c.Nome == nomeNota); 
         return categorias;
     }
 }
