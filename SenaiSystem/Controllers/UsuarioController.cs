@@ -5,6 +5,7 @@ using SenaiSystem.DTOs;
 using SenaiSystem.Interface;
 using SenaiSystem.Models;
 using SenaiSystem.Services;
+using SenaiSystem.ViewModels;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SenaiSystem.Controllers
@@ -20,16 +21,17 @@ namespace SenaiSystem.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
+        [Authorize]
         [HttpGet]
-        
         public IActionResult ListarTodos()
         {
             var usuario = _usuarioRepository.ListarTodos();
 
             return Ok(usuario);
         }
+
+        [Authorize]
         [HttpPost]
-        
         [SwaggerOperation(
             Summary = "Cria um usuário.(EXEMPLO)",
             Description = "Este endpoint cria usuários.(EXEMPLO)"
@@ -40,8 +42,11 @@ namespace SenaiSystem.Controllers
             _usuarioRepository.Cadastrar(usuario);
             return Created("Usuario cadastrado com sucesso", usuario);
         }
-        [HttpPut("{id}")]
         
+        
+
+        [Authorize]
+        [HttpPut("{id}")]
         public IActionResult Atualizar(int id, CadastroEditarUsuarioDto usuario)
         {
             try
@@ -54,8 +59,9 @@ namespace SenaiSystem.Controllers
                 return NotFound("Nota não encontrado.");
             }
         }
+
+        [Authorize]
         [HttpDelete("{id}")]
-        
         public IActionResult Deletar(int id)
         {
             try
@@ -70,8 +76,6 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpPost("login")]
-        
-
         public IActionResult Login(LoginDto loginDto)
         {
 
@@ -80,6 +84,11 @@ namespace SenaiSystem.Controllers
             {
                 return Unauthorized("Dados inválidos.");
             }
+            var usuarioViewModel = new ListarUsuarioViewModel
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
 
             var tokenService = new TokenService();
 
@@ -88,7 +97,7 @@ namespace SenaiSystem.Controllers
             return Ok(new
             {
                 token,
-                usuario
+                usuarioViewModel
             });
         }
     }

@@ -17,15 +17,15 @@ namespace SenaiSystem.Controllers
             _notaCategoriaRepository = notaCategoriaRepository;
         }
 
-        [HttpGet]
-        
+        [Authorize]
+        [HttpGet]        
         public IActionResult ListarTodos()
         {
             return Ok(_notaCategoriaRepository.ListarTodos());
         }
 
-        [HttpGet("{id}")]
-        
+        [Authorize]
+        [HttpGet("{id}")]        
         public IActionResult Details(int id) 
         {
             var notaCategoria = _notaCategoriaRepository.BuscarPorId(id);
@@ -35,6 +35,7 @@ namespace SenaiSystem.Controllers
             }
             return Ok(notaCategoria);
         }
+        [Authorize]
         [HttpPost]
         
         public IActionResult Cadastrar(CadastroEditarNotaCategoriaDto notaCategoria)
@@ -43,6 +44,7 @@ namespace SenaiSystem.Controllers
             return Created("Nota cadastrada com sucesso", notaCategoria);
         }
 
+        [Authorize]
         [HttpPut]
         
         public IActionResult Editar(int id, CadastroEditarNotaCategoriaDto notaCategoria)
@@ -57,8 +59,9 @@ namespace SenaiSystem.Controllers
                 return NotFound("Nota não encontrado.");
             }
         }
-        [HttpDelete]
-        
+
+        [Authorize]
+        [HttpDelete]        
         public IActionResult Deletar(int id)
         {
             try
@@ -71,7 +74,5 @@ namespace SenaiSystem.Controllers
                 return NotFound("Nota não encontrado.");
             }
         }
-
-
     }
 }

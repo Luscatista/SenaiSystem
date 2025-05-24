@@ -18,21 +18,22 @@ public class LembreteController : ControllerBase
         _lembreteRepository = lembreteRepository;
     }
 
+    [Authorize]
     [HttpGet]
-    
     public IActionResult ListarTodos()
     {
         return Ok(_lembreteRepository.ListarTodos());
     }
 
+    [Authorize]
     [HttpGet("{id}")]
-    
     public IActionResult BuscarPorId(int id)
     {
         return Ok(_lembreteRepository.BuscarPorId(id));
     }
 
-    [HttpPost]
+    [Authorize]
+    [HttpPost]    
     
     public IActionResult Cadastrar(CadastroEditarLembreteDto lembrete)
     {
@@ -40,6 +41,7 @@ public class LembreteController : ControllerBase
         return Created();
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     
     public IActionResult Editar(int id, CadastroEditarLembreteDto lembrete)
@@ -55,8 +57,8 @@ public class LembreteController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
-    
+    [Authorize]
+    [HttpDelete("{id}")]    
     public IActionResult Deletar(int id)
     {
         try
