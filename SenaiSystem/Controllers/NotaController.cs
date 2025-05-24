@@ -16,15 +16,16 @@ public class NotaController : ControllerBase
     {
         _notaRepository = notaRepository;
     }
+
     [Authorize]
-    [HttpGet]
-    
+    [HttpGet]    
     public IActionResult ListarTodos()
     {
         return Ok(_notaRepository.ListarTodos());
     }
-    [HttpGet("{id}")]
-    
+
+    [Authorize]
+    [HttpGet("{id}")]    
     public IActionResult BuscarPorId(int id)
     {
         var notas = _notaRepository.BuscarPorId(id);
@@ -35,16 +36,16 @@ public class NotaController : ControllerBase
         return Ok(notas);
     }
 
-    [HttpPost]
-    
+    [Authorize]
+    [HttpPost]    
     public IActionResult Cadastrar(CadastroNotaDto nota)
     {
         _notaRepository.Cadastrar(nota);
         return Created();
     }
 
-    [HttpPut]
-    
+    [Authorize]
+    [HttpPut]    
 
     public IActionResult Editar(int id, Nota nota)
     {
@@ -58,8 +59,9 @@ public class NotaController : ControllerBase
             return NotFound("Nota não encontrado.");
         }
     }
-    [HttpDelete]
-    
+
+    [Authorize]
+    [HttpDelete]  
 
     public IActionResult Deletar(int id)
     {
@@ -74,8 +76,8 @@ public class NotaController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("notas/arquivadas/")]
-
     public IActionResult Arquivada(int id, Nota nota)
     {
         try
@@ -89,8 +91,8 @@ public class NotaController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("notas/Usuario")]
-
     public IActionResult BuscarPorUsuario(int id)
     {
         var notas = _notaRepository.BuscarPorUsuario(id);
@@ -100,6 +102,8 @@ public class NotaController : ControllerBase
         }
         return Ok(notas);
     }
+
+    [Authorize]
     [HttpGet("Buscar/Notas")]
     public IActionResult BuscarPorInformacao(string texto)
     {

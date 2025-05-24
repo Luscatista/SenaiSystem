@@ -17,42 +17,49 @@ public class CategoriaController : ControllerBase
         _categoriasRepository = categoriaRepository;
     }
 
+    [Authorize]
     [HttpGet]
     public IActionResult ListarTodos()
     {
         return Ok(_categoriasRepository.ListarTodos());
     }
 
+    [Authorize]
     [HttpGet("/buscar/Usuario")]
+
     public IActionResult ListarCategoriaPorUsuario(int id)
     {
         return Ok(_categoriasRepository.ListarCategoriaPorUsuario(id));
     }
 
+    [Authorize]
     [HttpGet("{id}")]
-    
+
+
     public IActionResult BuscarPorId(int id)
     {
         return Ok(_categoriasRepository.BuscarPorId(id));
     }
 
+    [Authorize]
     [HttpGet("buscar/{id}")]
-   
     public IActionResult BuscarPorUsuario(int id)
     {
         return Ok(_categoriasRepository.BuscarPorId(id));
     }
 
+    [Authorize]
     [HttpPost]
-    
+
     public IActionResult Cadastrar(Categoria categoria)
     {
         _categoriasRepository.Cadastrar(categoria);
         return Created();
     }
 
+    [Authorize]
     [HttpPut("{id}")]
-    
+
     public IActionResult Editar(int id, Categoria categoria)
     {
         try
@@ -66,8 +73,8 @@ public class CategoriaController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
-    
     public IActionResult Deletar(int id)
     {
         try
