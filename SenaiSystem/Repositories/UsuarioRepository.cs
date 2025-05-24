@@ -15,7 +15,7 @@ namespace SenaiSystem.Repositories
         {
             _context = context;
         }
-        public void Atualizar(int id, Usuario usuario)
+        public void Atualizar(int id, CadastroEditarUsuarioDto usuario)
         {
             var usuarioEncontrado = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
 
@@ -59,14 +59,19 @@ namespace SenaiSystem.Repositories
                 .ToList();
         }
 
-        public void Cadastrar(Usuario usuario)
+        public void Cadastrar(CadastroEditarUsuarioDto usuario)
         {
+            var novoUsuario = new Usuario
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+                Senha = usuario.Senha
+            };
+            
             var passwordService = new PasswordService();
+            novoUsuario.Senha = passwordService.HashPassword(novoUsuario);
 
-            usuario.Senha = passwordService.HashPassword(usuario);
-
-            _context.Usuarios.Add(usuario);
-
+            _context.Usuarios.Add(novoUsuario);
             _context.SaveChanges();
         }
 

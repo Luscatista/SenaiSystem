@@ -43,7 +43,7 @@ public class NotaRepository : INotaRepository
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
     }
-    public CadastroNotaDto? Cadastrar(CadastroNotaDto nota)
+    public CadastroEditarNotaDto? Cadastrar(CadastroEditarNotaDto nota)
     {
         //1- percorrer a lista de categorias
         //1.1 - verificar se a categoria existe
@@ -113,7 +113,7 @@ public class NotaRepository : INotaRepository
 
         return nota;
     }
-    public void Atualizar(int id, Nota nota)
+    public void Atualizar(int id, CadastroEditarNotaDto nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (notaAtual == null)

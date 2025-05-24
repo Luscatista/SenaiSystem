@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenaiSystem.Context;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
@@ -29,13 +30,18 @@ public class CategoriaRepository : ICategoriaRepository
         return _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
     }
 
-    public void Cadastrar(Categoria categoria)
+    public void Cadastrar(CadastroEditarCategoriaDto categoria)
     {
-        _context.Categoria.Add(categoria);
+        var novaCategoria = new Categoria
+        {
+            Nome = categoria.Nome,
+            IdUsuario = categoria.IdUsuario
+        };
+        _context.Categoria.Add(novaCategoria);
         _context.SaveChanges();
     }
 
-    public void Atualizar(int id, Categoria categoria)
+    public void Atualizar(int id, CadastroEditarCategoriaDto categoria)
     {
         var categoriaAtual = _context.Categoria.FirstOrDefault(c => c.IdCategoria == id);
         if (categoriaAtual == null)

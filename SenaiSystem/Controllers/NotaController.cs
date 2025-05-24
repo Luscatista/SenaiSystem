@@ -37,7 +37,7 @@ public class NotaController : ControllerBase
 
     [HttpPost]
     
-    public IActionResult Cadastrar(CadastroNotaDto nota)
+    public IActionResult Cadastrar(CadastroEditarNotaDto nota)
     {
         _notaRepository.Cadastrar(nota);
         return Created();
@@ -46,7 +46,7 @@ public class NotaController : ControllerBase
     [HttpPut]
     
 
-    public IActionResult Editar(int id, Nota nota)
+    public IActionResult Editar(int id, CadastroEditarNotaDto nota)
     {
         try
         {

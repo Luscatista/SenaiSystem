@@ -1,4 +1,5 @@
-﻿using SenaiSystem.Models;
+﻿using SenaiSystem.DTOs;
+using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Interface
@@ -7,8 +8,8 @@ namespace SenaiSystem.Interface
     {
         List<ListarUsuarioViewModel> ListarTodos();
         Usuario? BuscarPorEmailSenha(string email, string senha);
-        void Cadastrar(Usuario usuario);
-        void Atualizar(int id, Usuario usuario);    
+        void Cadastrar(CadastroEditarUsuarioDto usuario);
+        void Atualizar(int id, CadastroEditarUsuarioDto usuario);    
         void Deletar(int id);
         Usuario? BuscarPorId(int id);
     }

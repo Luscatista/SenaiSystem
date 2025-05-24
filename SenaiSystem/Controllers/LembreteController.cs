@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.Repositories;
@@ -33,7 +34,7 @@ public class LembreteController : ControllerBase
 
     [HttpPost]
     
-    public IActionResult Cadastrar(Lembrete lembrete)
+    public IActionResult Cadastrar(CadastroEditarLembreteDto lembrete)
     {
         _lembreteRepository.Cadastrar(lembrete);
         return Created();
@@ -41,7 +42,7 @@ public class LembreteController : ControllerBase
 
     [HttpPut("{id}")]
     
-    public IActionResult Editar(int id, Lembrete lembrete)
+    public IActionResult Editar(int id, CadastroEditarLembreteDto lembrete)
     {
         try
         {

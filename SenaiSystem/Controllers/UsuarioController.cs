@@ -35,14 +35,14 @@ namespace SenaiSystem.Controllers
             Description = "Este endpoint cria usuários.(EXEMPLO)"
 
         )]
-        public IActionResult Cadastrar(Models.Usuario usuario)
+        public IActionResult Cadastrar(CadastroEditarUsuarioDto usuario)
         {
             _usuarioRepository.Cadastrar(usuario);
             return Created("Usuario cadastrado com sucesso", usuario);
         }
         [HttpPut("{id}")]
         
-        public IActionResult Atualizar(int id, Models.Usuario usuario)
+        public IActionResult Atualizar(int id, CadastroEditarUsuarioDto usuario)
         {
             try
             {

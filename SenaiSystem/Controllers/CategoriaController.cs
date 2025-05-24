@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.Repositories;
@@ -45,7 +46,7 @@ public class CategoriaController : ControllerBase
 
     [HttpPost]
     
-    public IActionResult Cadastrar(Categoria categoria)
+    public IActionResult Cadastrar(CadastroEditarCategoriaDto categoria)
     {
         _categoriasRepository.Cadastrar(categoria);
         return Created();
@@ -53,7 +54,7 @@ public class CategoriaController : ControllerBase
 
     [HttpPut("{id}")]
     
-    public IActionResult Editar(int id, Categoria categoria)
+    public IActionResult Editar(int id, CadastroEditarCategoriaDto categoria)
     {
         try
         {

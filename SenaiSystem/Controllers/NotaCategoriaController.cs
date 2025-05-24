@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SenaiSystem.Interfaces;
+using SenaiSystem.DTOs;
+using SenaiSystem.Models;
 
 namespace SenaiSystem.Controllers
 {
@@ -35,7 +37,7 @@ namespace SenaiSystem.Controllers
         }
         [HttpPost]
         
-        public IActionResult Cadastrar(Models.NotaCategoria notaCategoria)
+        public IActionResult Cadastrar(CadastroEditarNotaCategoriaDto notaCategoria)
         {
             _notaCategoriaRepository.Cadastrar(notaCategoria);
             return Created("Nota cadastrada com sucesso", notaCategoria);
@@ -43,7 +45,7 @@ namespace SenaiSystem.Controllers
 
         [HttpPut]
         
-        public IActionResult Editar(int id, Models.NotaCategoria notaCategoria)
+        public IActionResult Editar(int id, CadastroEditarNotaCategoriaDto notaCategoria)
         {
             try
             {

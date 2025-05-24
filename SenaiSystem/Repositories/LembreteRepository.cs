@@ -1,4 +1,5 @@
 ﻿using SenaiSystem.Context;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
@@ -27,12 +28,17 @@ public class LembreteRepository : ILembreteRepository
     {
         return _context.Lembretes.FirstOrDefault(l => l.IdLembrete == id);
     }
-    public void Cadastrar(Lembrete lembrete)
+    public void Cadastrar(CadastroEditarLembreteDto lembrete)
     {
-        _context.Lembretes.Add(lembrete);
+        var novoLembrete = new Lembrete
+        {
+            IdNota = lembrete.IdNota,
+            DataHora = lembrete.DataHora,
+        };
+        _context.Lembretes.Add(novoLembrete);
         _context.SaveChanges();
     }
-    public void Atualizar(int id, Lembrete lembrete)
+    public void Atualizar(int id, CadastroEditarLembreteDto lembrete)
     {
         var lembreteAtual = _context.Lembretes.FirstOrDefault(l => l.IdLembrete == id);
         if (lembreteAtual == null)

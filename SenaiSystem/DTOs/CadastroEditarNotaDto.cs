@@ -1,6 +1,6 @@
 ﻿namespace SenaiSystem.DTOs
 {
-    public class CadastroNotaDto
+    public class CadastroEditarNotaDto
     {
         public int IdUsuario { get; set; }
 

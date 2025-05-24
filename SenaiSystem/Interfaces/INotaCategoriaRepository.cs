@@ -1,4 +1,5 @@
-﻿using SenaiSystem.Models;
+﻿using SenaiSystem.DTOs;
+using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
 
 namespace SenaiSystem.Interfaces
@@ -6,8 +7,8 @@ namespace SenaiSystem.Interfaces
     public interface INotaCategoriaRepository
     {
         List<ListarNotaCategoriaViewModel> ListarTodos();
-        void Cadastrar(NotaCategoria notaCategoria);
-        void Atualizar(int id, NotaCategoria notaCategoria);
+        void Cadastrar(CadastroEditarNotaCategoriaDto notaCategoria);
+        void Atualizar(int id, CadastroEditarNotaCategoriaDto notaCategoria);
         void Deletar(int id);
         NotaCategoria BuscarPorId(int id);
     }

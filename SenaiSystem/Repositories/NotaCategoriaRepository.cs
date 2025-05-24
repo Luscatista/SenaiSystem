@@ -1,4 +1,5 @@
 ﻿using SenaiSystem.Context;
+using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.ViewModels;
@@ -13,7 +14,7 @@ namespace SenaiSystem.Repositories
             _context = context;
         }
 
-        public void Atualizar(int id, NotaCategoria notaCategoria)
+        public void Atualizar(int id, CadastroEditarNotaCategoriaDto notaCategoria)
         {
             var NotaCategoriaEncontrado = _context.NotaCategoria.FirstOrDefault(n => n.IdNotaCategoria == id);
             if (NotaCategoriaEncontrado == null)
@@ -39,11 +40,15 @@ namespace SenaiSystem.Repositories
             return notaCategoria; ;
         }
 
-        public void Cadastrar(NotaCategoria notaCategoria)
+        public void Cadastrar(CadastroEditarNotaCategoriaDto notaCategoria)
         {
-            _context.NotaCategoria.Add(notaCategoria);
-
-            _context.SaveChanges(); ;
+            var novaNotaCategoria = new NotaCategoria
+            {
+                IdNota = notaCategoria.IdNota,
+                IdCategoria = notaCategoria.IdCategoria,
+            };
+            _context.NotaCategoria.Add(novaNotaCategoria);
+            _context.SaveChanges();
         }
 
         public void Deletar(int id)
