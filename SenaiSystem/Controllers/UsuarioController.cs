@@ -23,6 +23,11 @@ namespace SenaiSystem.Controllers
 
         [Authorize]
         [HttpGet]
+        [SwaggerOperation(
+            Summary = "Lista todos os usuários",
+            Description = "Este endpoint lista todos usuários."
+
+        )]
         public IActionResult ListarTodos()
         {
             var usuario = _usuarioRepository.ListarTodos();
@@ -47,6 +52,11 @@ namespace SenaiSystem.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
+        [SwaggerOperation(
+            Summary = "Atualizar Usuários",
+            Description = "Este endpoint atualiza usuários."
+
+        )]
         public IActionResult Atualizar(int id, CadastroEditarUsuarioDto usuario)
         {
             try
@@ -62,6 +72,11 @@ namespace SenaiSystem.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "Deletar Usuários",
+            Description = "Este endpoint deleta usuários."
+
+        )]
         public IActionResult Deletar(int id)
         {
             try
@@ -76,6 +91,11 @@ namespace SenaiSystem.Controllers
         }
 
         [HttpPost("login")]
+        [SwaggerOperation(
+            Summary = "Login - Recebe Token",
+            Description = "Este endpoint gera o token de acesso para usuários."
+
+        )]
         public IActionResult Login(LoginDto loginDto)
         {
 

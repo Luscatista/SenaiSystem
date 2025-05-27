@@ -5,6 +5,7 @@ using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
 using SenaiSystem.Repositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SenaiSystem.Controllers;
 
@@ -20,6 +21,11 @@ public class CategoriaController : ControllerBase
 
     [Authorize]
     [HttpGet]
+    [SwaggerOperation(
+            Summary = "Lista todas as categorias",
+            Description = "Este endpoint busca todas as categorias."
+
+    )]
     public IActionResult ListarTodos()
     {
         return Ok(_categoriasRepository.ListarTodos());
@@ -27,16 +33,24 @@ public class CategoriaController : ControllerBase
 
     [Authorize]
     [HttpGet("/buscar/Usuario")]
+    [SwaggerOperation(
+            Summary = "Lista todas as categorias por usuário.",
+            Description = "Este endpoint encontra todas as categorias de um usuário especifico."
 
-    public IActionResult ListarCategoriaPorUsuario(int id)
+    )]
+
+    public IActionResult BuscarPorUsuario(int id)
     {
-        return Ok(_categoriasRepository.ListarCategoriaPorUsuario(id));
+        return Ok(_categoriasRepository.BuscarPorUsuario(id));
     }
 
     [Authorize]
     [HttpGet("{id}")]
+    [SwaggerOperation(
+            Summary = "Busca a categoria por Id",
+            Description = "Este endpoint encontra a categoria por id."
 
-
+    )]
     public IActionResult BuscarPorId(int id)
     {
         return Ok(_categoriasRepository.BuscarPorId(id));
@@ -44,14 +58,23 @@ public class CategoriaController : ControllerBase
 
     [Authorize]
     [HttpGet("buscar/{id}")]
-    public IActionResult BuscarPorUsuario(int id)
+    [SwaggerOperation(
+            Summary = "Resgata uma categoria por Id e Nome",
+            Description = "Este endpoint busca categoria por id e nome."
+
+    )]
+    public IActionResult BuscarPorUsuarioeId (int id, string nome)
     {
-        return Ok(_categoriasRepository.BuscarPorId(id));
+        return Ok(_categoriasRepository.BuscarPorUsuarioeId(id, nome));
     }
 
     [Authorize]
     [HttpPost]
-    
+    [SwaggerOperation(
+            Summary = "Cadastrar a categoria",
+            Description = "Este endpoint cria a categoria."
+
+    )]
     public IActionResult Cadastrar(CadastroEditarCategoriaDto categoria)
     {
         _categoriasRepository.Cadastrar(categoria);
@@ -60,7 +83,12 @@ public class CategoriaController : ControllerBase
 
     [Authorize]
     [HttpPut("{id}")]
-    
+    [SwaggerOperation(
+            Summary = "Atualiza Categoria",
+            Description = "Este endpoint atualiza a categoria."
+
+    )]
+
     public IActionResult Editar(int id, CadastroEditarCategoriaDto categoria)
     {
         try
@@ -76,6 +104,11 @@ public class CategoriaController : ControllerBase
 
     [Authorize]
     [HttpDelete("{id}")]
+    [SwaggerOperation(
+            Summary = "Deleta Categorias",
+            Description = "Este endpoint deleta categorias."
+
+    )]
     public IActionResult Deletar(int id)
     {
         try

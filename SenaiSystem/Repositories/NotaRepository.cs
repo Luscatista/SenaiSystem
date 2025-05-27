@@ -58,7 +58,7 @@ public class NotaRepository : INotaRepository
         foreach (var item in nota.Categorias)
         {
             //Verificar se a categoria existe
-            var tag = _categoriaRepository.BuscarPorUsuario(nota.IdUsuario, item);
+            var tag = _categoriaRepository.BuscarPorUsuarioeId(nota.IdUsuario, item);
 
             //Caso nao exista - Crio uma nova categoria
             if (tag == null)
@@ -113,13 +113,12 @@ public class NotaRepository : INotaRepository
 
         return nota;
     }
-    public void Atualizar(int id, CadastroEditarNotaDto nota)
+    public Nota? Atualizar(int id, CadastroEditarNotaDto nota)
     {
         var notaAtual = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (notaAtual == null)
-        {
-            throw new ArgumentNullException("nota não encontrada.");
-        }
+            return null;
+        
 
         notaAtual.IdUsuario = nota.IdUsuario;
         notaAtual.Titulo = nota.Titulo;
@@ -131,25 +130,25 @@ public class NotaRepository : INotaRepository
         notaAtual.Prioridade = nota.Prioridade;
 
         _context.SaveChanges();
+        return notaAtual;
     }
-    public void Deletar(int id)
+    public Nota? Deletar(int id)
     {
         var nota = _context.Nota.FirstOrDefault(n => n.IdNota == id);
         if (nota == null)
-        {
-            throw new ArgumentNullException("nota não encontrada.");
-        }
+            return null;
 
         _context.Nota.Remove(nota);
         _context.SaveChanges();
+
+        return nota;
     }
     public Nota? Arquivada(int id)
     {
         var nota = _context.Nota.Find(id);
         if (nota == null)
-        {
-            throw new ArgumentNullException("nota não encontrada.");
-        }
+            return null;
+
         nota.Arquivada = !nota.Arquivada;
         _context.SaveChanges();
         return nota;

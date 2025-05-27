@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SenaiSystem.DTOs;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Models;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SenaiSystem.Controllers;
 
@@ -18,14 +19,24 @@ public class NotaController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet]    
+    [HttpGet]
+    [SwaggerOperation(
+            Summary = "Lista todas as notas",
+            Description = "Este endpoint busca todas as notas."
+
+    )]
     public IActionResult ListarTodos()
     {
         return Ok(_notaRepository.ListarTodos());
     }
 
     [Authorize]
-    [HttpGet("{id}")]    
+    [HttpGet("{id}")]
+    [SwaggerOperation(
+            Summary = "Busca a nota por id",
+            Description = "Este endpoint busca a nota pelo id informado."
+
+    )]
     public IActionResult BuscarPorId(int id)
     {
         var notas = _notaRepository.BuscarPorId(id);
@@ -35,23 +46,36 @@ public class NotaController : ControllerBase
         }
         return Ok(notas);
     }
-
-    
     
     [Authorize]
     [HttpPost]
+    [SwaggerOperation(
+            Summary = "Cria uma nota",
+            Description = "Este endpoint cria uma nota."
+
+    )]
     public IActionResult Cadastrar(CadastroEditarNotaDto nota)
     {
+
+        //extra - VERIFICAR SE O ARQUIVO É UMA IMAGEM
+
+        //1 criar variavel que sera a pasta de destino
+        var pastaDestino = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+
+        // Salvar arquivo
+
+        //
         _notaRepository.Cadastrar(nota);
         return Created();
     }
 
-    
-    
-
     [Authorize]
     [HttpPut]
+    [SwaggerOperation(
+            Summary = "Atualiza uma nota",
+            Description = "Este endpoint atualiza a nota informada."
 
+    )]
     public IActionResult Editar(int id, CadastroEditarNotaDto nota)
     {
         try
@@ -66,8 +90,12 @@ public class NotaController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete]  
+    [HttpDelete]
+    [SwaggerOperation(
+            Summary = "Deleta uma nota",
+            Description = "Este endpoint deleta uma nota especifica."
 
+    )]
     public IActionResult Deletar(int id)
     {
         try
@@ -83,6 +111,11 @@ public class NotaController : ControllerBase
 
     [Authorize]
     [HttpPut("notas/arquivadas/")]
+    [SwaggerOperation(
+            Summary = "Arquiva a nota informada",
+            Description = "Este endpoint arquiva as notas."
+
+    )]
     public IActionResult Arquivada(int id, Nota nota)
     {
         try
@@ -98,6 +131,11 @@ public class NotaController : ControllerBase
 
     [Authorize]
     [HttpGet("notas/Usuario")]
+    [SwaggerOperation(
+            Summary = "Busca todas as notas de um usuário",
+            Description = "Este endpoint busca todas as notas de um usuário por seu id."
+
+    )]
     public IActionResult BuscarPorUsuario(int id)
     {
         var notas = _notaRepository.BuscarPorUsuario(id);
@@ -110,6 +148,11 @@ public class NotaController : ControllerBase
 
     [Authorize]
     [HttpGet("Buscar/Notas")]
+    [SwaggerOperation(
+            Summary = "Busca todas as notas segundo a pesquisa",
+            Description = "Este endpoint busca todas as notas de acordo com um texto informado."
+
+    )]
     public IActionResult BuscarPorInformacao(string texto)
     {
         var notas = _notaRepository.BuscarPorInformacao(texto);

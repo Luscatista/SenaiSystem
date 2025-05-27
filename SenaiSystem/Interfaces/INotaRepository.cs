@@ -11,7 +11,7 @@ public interface INotaRepository
     List<Nota>? BuscarPorInformacao(string texto); 
     CadastroEditarNotaDto? Cadastrar(CadastroEditarNotaDto nota);
     List<ListarNotaViewModel> BuscarPorUsuario(int id);
-    void Atualizar(int id, CadastroEditarNotaDto nota);
-    void Deletar(int id);
+    Nota? Atualizar(int id, CadastroEditarNotaDto nota);
+    Nota? Deletar(int id);
     Nota? Arquivada(int id);
 }

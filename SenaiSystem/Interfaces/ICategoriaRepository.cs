@@ -7,9 +7,9 @@ public interface ICategoriaRepository
 {
     List<ListarCategoriaViewModel> ListarTodos();
     Categoria? BuscarPorId(int id);
-    List<Categoria>? ListarCategoriaPorUsuario(int id);
-    Categoria? BuscarPorUsuario(int id, string nomeNota);
-    void Cadastrar(CadastroEditarCategoriaDto categoria);
-    void Atualizar(int id, CadastroEditarCategoriaDto categoria);
-    void Deletar(int id);
+    List<Categoria>? BuscarPorUsuario(int id);
+    Categoria? BuscarPorUsuarioeId(int id, string nomeNota);
+    ListarCategoriaViewModel? Cadastrar(CadastroEditarCategoriaDto categoria);
+    ListarCategoriaViewModel? Atualizar(int id, CadastroEditarCategoriaDto categoria);
+    ListarCategoriaViewModel? Deletar(int id);
 }

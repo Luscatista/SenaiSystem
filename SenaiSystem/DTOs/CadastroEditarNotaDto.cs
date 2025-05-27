@@ -17,6 +17,7 @@
         public bool? Arquivada { get; set; }
 
         public int? Prioridade { get; set; }
+        public IFormFile? ArquivoNota { get; set; }
 
         public List<string> Categorias { get; set; } 
     }

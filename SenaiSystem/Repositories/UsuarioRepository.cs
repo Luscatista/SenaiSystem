@@ -15,14 +15,13 @@ namespace SenaiSystem.Repositories
         {
             _context = context;
         }
-        public void Atualizar(int id, CadastroEditarUsuarioDto usuario)
+        public ListarUsuarioViewModel? Atualizar(int id, CadastroEditarUsuarioDto usuario)
         {
             var usuarioEncontrado = _context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
 
             if (usuarioEncontrado == null)
-            {
-                throw new ArgumentNullException("Nota não encontrada.");
-            };
+                return null;
+
             var passwordService = new PasswordService();
 
             usuarioEncontrado.Nome = usuario.Nome;
@@ -31,20 +30,33 @@ namespace SenaiSystem.Repositories
 
             usuarioEncontrado.Senha = passwordService.HashPassword(usuarioEncontrado);
 
+            var novoUsuarioViewModel = new ListarUsuarioViewModel
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+            };
+
             _context.SaveChanges();
-        }
-        public void Deletar(int id)
+            return novoUsuarioViewModel;
+            }
+        public ListarUsuarioViewModel Deletar(int id)
         {
             var usuario = _context.Usuarios.Find(id);
 
             if (usuario == null)
-            {
-                throw new ArgumentNullException("Nota não encontrada.");
-            }
+                return null;
 
             _context.Usuarios.Remove(usuario);
 
+            var novoUsuarioViewModel = new ListarUsuarioViewModel
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+            };
+
             _context.SaveChanges();
+
+            return novoUsuarioViewModel;
         }
         public List<ListarUsuarioViewModel> ListarTodos()
         {
@@ -59,7 +71,7 @@ namespace SenaiSystem.Repositories
                 .ToList();
         }
 
-        public void Cadastrar(CadastroEditarUsuarioDto usuario)
+        public ListarUsuarioViewModel? Cadastrar(CadastroEditarUsuarioDto usuario)
         {
             var novoUsuario = new Usuario
             {
@@ -72,17 +84,28 @@ namespace SenaiSystem.Repositories
             novoUsuario.Senha = passwordService.HashPassword(novoUsuario);
 
             _context.Usuarios.Add(novoUsuario);
+
+            var novoUsuarioViewModel = new ListarUsuarioViewModel
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+            };
             _context.SaveChanges();
+            return novoUsuarioViewModel;
         }
 
-        public Usuario? BuscarPorId(int id)
+        public ListarUsuarioViewModel? BuscarPorId(int id)
         {
             var usuario = _context.Usuarios.Find(id);
             if (usuario == null)
+                return null;
+
+            var novoUsuarioViewModel = new ListarUsuarioViewModel
             {
-                throw new ArgumentNullException("Nota não encontrada.");
-            }
-            return usuario;
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+            };
+            return novoUsuarioViewModel;
         }
 
         public Usuario? BuscarPorEmailSenha(string email, string senha)
@@ -90,9 +113,7 @@ namespace SenaiSystem.Repositories
             var usuario = _context.Usuarios.FirstOrDefault(c => c.Email == email);
 
             if (usuario == null)
-            {
-                throw new ArgumentNullException("Nota não encontrada.");
-            }
+                return null;
 
             var passwordService = new PasswordService();
 
@@ -104,7 +125,7 @@ namespace SenaiSystem.Repositories
                 return usuario;
             }
 
-            return usuario;
+            return null;
         }
     }
 }
