@@ -47,7 +47,7 @@ public class NotaController : ControllerBase
         return Ok(notas);
     }
     
-    [Authorize]
+    //[Authorize]
     [HttpPost]
     [SwaggerOperation(
             Summary = "Cria uma nota",
@@ -57,14 +57,29 @@ public class NotaController : ControllerBase
     public IActionResult Cadastrar(CadastroEditarNotaDto nota)
     {
 
-        //extra - VERIFICAR SE O ARQUIVO É UMA IMAGEM
+        if(nota != null)
+        {
+            //extra - VERIFICAR SE O ARQUIVO É UMA IMAGEM
 
-        //1 criar variavel que sera a pasta de destino
-        var pastaDestino = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            //1 criar variavel que sera a pasta de destino
+            var pastaDestino = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
 
-        // Salvar arquivo
+            //2 Salvar arquivo (extra - criar uma nome personalizado para o arquivo)
+            var nomeArquivo = nota.ArquivoNota.FileName;
 
-        //
+            var caminhoCompleto = Path.Combine(pastaDestino, nomeArquivo);
+
+            using (var stream = new FileStream(caminhoCompleto, FileMode.Create))
+            {
+                nota.ArquivoNota.CopyTo(stream);
+            }
+
+            //3 Guardar o local do arquivo no BD
+
+            nota.Imagem = nomeArquivo;
+        }
+
+
         _notaRepository.Cadastrar(nota);
         return Created();
     }
