@@ -29,6 +29,18 @@ public class NotaController : ControllerBase
     {
         return Ok(_notaRepository.ListarTodos());
     }
+    
+    [Authorize]
+    [HttpGet("notas/arquivas")]
+    [SwaggerOperation(
+            Summary = "Lista todas as notas arquivadas",
+            Description = "Este endpoint busca todas as notas arquivadas."
+
+    )]
+    public IActionResult ListarTodasArquivadas()
+    {
+        return Ok(_notaRepository.ListarTodasArquivadas());
+    }
 
     [Authorize]
     [HttpGet("{id}")]

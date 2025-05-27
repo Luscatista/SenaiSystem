@@ -132,5 +132,20 @@ namespace SenaiSystem.Controllers
         }
         
 
+        [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Busca usuario por Id",
+            Description = "Este endpoint busca o usuário pelo id informado."
+
+        )]
+        public IActionResult BuscarPorId(int id)
+        {
+            var usuario = _usuarioRepository.BuscarPorId(id);
+            if (usuario == null)
+            {
+                return NotFound("Usuario não encontrado.");
+            }
+            return Ok(usuario);
+        }
     }
 }
