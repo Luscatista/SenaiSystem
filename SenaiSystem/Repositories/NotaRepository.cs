@@ -39,6 +39,29 @@ public class NotaRepository : INotaRepository
                     }).ToList()
             }).ToList();
     }
+    public List<ListarNotaViewModel> ListarTodasArquivadas()
+    {
+        return _context.Nota
+            .Include(n => n.NotaCategoria)
+            .ThenInclude(nC => nC.IdCategoriaNavigation)
+            .Select(n => new ListarNotaViewModel
+            {
+                IdNota = n.IdNota,
+                Titulo = n.Titulo,
+                Imagem = n.Imagem,
+                Conteudo = n.Conteudo,
+                DataCriacao = n.DataCriacao,
+                DataModificacao = n.DataModificacao,
+                Arquivada = n.Arquivada,
+                Prioridade = n.Prioridade,
+                Categorias = n.NotaCategoria.Select(
+                    nC => new CategoriaViewModel
+                    {
+                        IdCategoria = nC.IdCategoriaNavigation.IdCategoria,
+                        Nome = nC.IdCategoriaNavigation.Nome
+                    }).ToList()
+            }).Where(n => n.Arquivada == true).ToList();
+    }
     public Nota? BuscarPorId(int id)
     {
         return _context.Nota.FirstOrDefault(n => n.IdNota == id);
