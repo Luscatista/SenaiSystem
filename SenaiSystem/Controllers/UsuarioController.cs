@@ -140,5 +140,14 @@ namespace SenaiSystem.Controllers
             return Ok("Senha alterada com sucesso.");
         }*/
 
+        public IActionResult BuscarPorId(int id)
+        {
+            var usuario = _usuarioRepository.BuscarPorId(id);
+            if (usuario == null)
+            {
+                return NotFound("Usuario não encontrado.");
+            }
+            return Ok(usuario);
+        }
     }
 }
