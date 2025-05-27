@@ -60,6 +60,8 @@ public partial class SenaiSystemContext : DbContext
         {
             entity.HasKey(e => e.IdCategoria).HasName("PK__Categori__A3C02A108CC4DC94");
 
+            entity.HasIndex(e => e.Nome, "idx_NomeCategoria");
+
             entity.Property(e => e.Nome)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -79,7 +81,7 @@ public partial class SenaiSystemContext : DbContext
 
             entity.HasOne(d => d.IdNotaNavigation).WithMany(p => p.Lembretes)
                 .HasForeignKey(d => d.IdNota)
-                .OnDelete(DeleteBehavior.SetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Lembrete__IdNota");
         });
 
@@ -100,7 +102,10 @@ public partial class SenaiSystemContext : DbContext
         {
             entity.HasKey(e => e.IdNota).HasName("PK__Nota__4B2ACFF272F8CB29");
 
-            entity.Property(e => e.Conteudo).HasColumnType("text");
+            entity.HasIndex(e => e.Imagem, "idx_Imagem");
+
+            entity.HasIndex(e => e.Titulo, "idx_Titulo");
+
             entity.Property(e => e.DataCriacao).HasColumnType("datetime");
             entity.Property(e => e.DataModificacao).HasColumnType("datetime");
             entity.Property(e => e.Imagem)
@@ -127,6 +132,12 @@ public partial class SenaiSystemContext : DbContext
                     tb.HasTrigger("trg_audit_notacategoria");
                     tb.HasTrigger("trg_audit_usuario");
                 });
+
+            entity.HasIndex(e => e.Email, "idx_Email");
+
+            entity.HasIndex(e => e.Nome, "idx_Nome");
+
+            entity.HasIndex(e => e.Senha, "idx_Senha");
 
             entity.Property(e => e.Email)
                 .HasMaxLength(100)

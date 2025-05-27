@@ -121,6 +121,11 @@ namespace SenaiSystem.Controllers
             });
         }
         [HttpPut("TrocarSenha/{id}")]
+        [SwaggerOperation(
+            Summary = "Trocar a senha do usuário",
+            Description = "Este endpoint troca a senha do usuário."
+
+        )]
         public IActionResult TrocarSenhaDto(TrocarSenhaDto senhaDto)
         {
 
