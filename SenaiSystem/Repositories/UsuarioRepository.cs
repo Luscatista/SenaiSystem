@@ -127,5 +127,26 @@ namespace SenaiSystem.Repositories
 
             return null;
         }
+
+        /*public Usuario? TrocarSenhaDto(int id, string senhaAtual, string novaSenha)
+        {
+            var usuario = _context.Usuarios.Find(id);
+
+            if (usuario == null) return null;
+
+            var passwordService = new PasswordService();
+
+            if (!passwordService.VerificarSenha(usuario, senhaAtual))
+            {
+                return null;
+            }
+
+               
+
+            usuario.Senha = passwordService.HashPassword(usuario);
+
+            _context.SaveChanges();
+            return usuario;
+        }*/
     }
 }

@@ -21,7 +21,7 @@ namespace SenaiSystem.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [SwaggerOperation(
             Summary = "Lista todos os usuários",
@@ -35,7 +35,7 @@ namespace SenaiSystem.Controllers
             return Ok(usuario);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [SwaggerOperation(
             Summary = "Cria um usuário.(EXEMPLO)",
@@ -50,7 +50,7 @@ namespace SenaiSystem.Controllers
         
         
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}")]
         [SwaggerOperation(
             Summary = "Atualizar Usuários",
@@ -70,7 +70,7 @@ namespace SenaiSystem.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         [SwaggerOperation(
             Summary = "Deletar Usuários",
@@ -120,5 +120,25 @@ namespace SenaiSystem.Controllers
                 usuarioViewModel
             });
         }
+        /*[HttpPut("TrocarSenha/{id}")]
+        public IActionResult TrocarSenha(int id, TrocarSenhaDto trocarSenhaDto)
+        {
+            var usuario = _usuarioRepository.TrocarSenhaDto(id, trocarSenhaDto.SenhaAtual, trocarSenhaDto.NovaSenha);
+
+
+
+            if (usuario == null)
+            {
+                return Unauthorized("Dados inválidos.");
+            }
+
+            if (trocarSenhaDto.NovaSenha != trocarSenhaDto.ConfirmarNovaSenha)
+            {
+                return BadRequest("As senhas não conferem.");
+            }
+
+            return Ok("Senha alterada com sucesso.");
+        }*/
+
     }
 }
