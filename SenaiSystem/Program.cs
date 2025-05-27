@@ -4,6 +4,7 @@ using SenaiSystem.Interface;
 using SenaiSystem.Interfaces;
 using SenaiSystem.Repositories;
 using SenaiSystem.Context;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,5 +79,17 @@ app.UseSwaggerUI(options =>
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+var pastaDestino = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+
+if (!Directory.Exists(pastaDestino))
+    Directory.CreateDirectory(pastaDestino);
+
+app.UseStaticFiles(
+    new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(pastaDestino),
+        RequestPath = "/image"
+    });
 
 app.Run();
