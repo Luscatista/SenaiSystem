@@ -12,6 +12,6 @@ namespace SenaiSystem.Interface
         ListarUsuarioViewModel? Atualizar(int id, CadastroEditarUsuarioDto usuario);
         ListarUsuarioViewModel? Deletar(int id);
         ListarUsuarioViewModel? BuscarPorId(int id);
-        //Usuario? TrocarSenhaDto(int id, string senhaAtual, string novaSenha);
+        ListarUsuarioViewModel? TrocarSenhaDto(int id, string senhaAtual, string novaSenha);
     }
 }

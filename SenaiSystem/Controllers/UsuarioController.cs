@@ -120,25 +120,17 @@ namespace SenaiSystem.Controllers
                 usuarioViewModel
             });
         }
-        /*[HttpPut("TrocarSenha/{id}")]
-        public IActionResult TrocarSenha(int id, TrocarSenhaDto trocarSenhaDto)
+        [HttpPut("TrocarSenha/{id}")]
+        public IActionResult TrocarSenhaDto(TrocarSenhaDto senhaDto)
         {
-            var usuario = _usuarioRepository.TrocarSenhaDto(id, trocarSenhaDto.SenhaAtual, trocarSenhaDto.NovaSenha);
 
+            var usuario = _usuarioRepository.TrocarSenhaDto(senhaDto.IdUsuario, senhaDto.SenhaAtual, senhaDto.NovaSenha);
 
+            if (usuario == null) return null;
 
-            if (usuario == null)
-            {
-                return Unauthorized("Dados inválidos.");
-            }
-
-            if (trocarSenhaDto.NovaSenha != trocarSenhaDto.ConfirmarNovaSenha)
-            {
-                return BadRequest("As senhas não conferem.");
-            }
-
-            return Ok("Senha alterada com sucesso.");
-        }*/
+            return Ok(usuario);
+        }
+        
 
     }
 }

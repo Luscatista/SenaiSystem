@@ -128,7 +128,7 @@ namespace SenaiSystem.Repositories
             return null;
         }
 
-        /*public Usuario? TrocarSenhaDto(int id, string senhaAtual, string novaSenha)
+        public ListarUsuarioViewModel? TrocarSenhaDto(int id, string senhaAtual, string novaSenha)
         {
             var usuario = _context.Usuarios.Find(id);
 
@@ -136,17 +136,26 @@ namespace SenaiSystem.Repositories
 
             var passwordService = new PasswordService();
 
-            if (!passwordService.VerificarSenha(usuario, senhaAtual))
+            var resultado = passwordService.VerificarSenha(usuario, senhaAtual);
+
+
+            if (resultado == false)
             {
                 return null;
             }
 
-               
+            usuario.Senha = novaSenha;
 
             usuario.Senha = passwordService.HashPassword(usuario);
 
             _context.SaveChanges();
-            return usuario;
-        }*/
+
+            var novoUsuarioViewModel = new ListarUsuarioViewModel
+            {
+                Nome = usuario.Nome,
+                Email = usuario.Email,
+            };
+            return novoUsuarioViewModel;
+        }
     }
 }
