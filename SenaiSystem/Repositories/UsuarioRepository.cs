@@ -102,6 +102,7 @@ namespace SenaiSystem.Repositories
 
             var novoUsuarioViewModel = new ListarUsuarioViewModel
             {
+                IdUsuario = usuario.IdUsuario,
                 Nome = usuario.Nome,
                 Email = usuario.Email,
             };

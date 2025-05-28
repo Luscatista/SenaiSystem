@@ -21,7 +21,7 @@ namespace SenaiSystem.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [SwaggerOperation(
             Summary = "Lista todos os usuários",
@@ -35,7 +35,6 @@ namespace SenaiSystem.Controllers
             return Ok(usuario);
         }
 
-        //[Authorize]
         [HttpPost]
         [SwaggerOperation(
             Summary = "Cria um usuário.(EXEMPLO)",
@@ -47,10 +46,10 @@ namespace SenaiSystem.Controllers
             _usuarioRepository.Cadastrar(usuario);
             return Created("Usuario cadastrado com sucesso", usuario);
         }
-        
-        
 
-        //[Authorize]
+
+
+        [Authorize]
         [HttpPut("{id}")]
         [SwaggerOperation(
             Summary = "Atualizar Usuários",
@@ -70,7 +69,7 @@ namespace SenaiSystem.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpDelete("{id}")]
         [SwaggerOperation(
             Summary = "Deletar Usuários",
@@ -120,6 +119,7 @@ namespace SenaiSystem.Controllers
                 usuarioViewModel
             });
         }
+        [Authorize]
         [HttpPut("TrocarSenha/{id}")]
         [SwaggerOperation(
             Summary = "Trocar a senha do usuário",
@@ -135,8 +135,8 @@ namespace SenaiSystem.Controllers
 
             return Ok(usuario);
         }
-        
 
+        [Authorize]
         [HttpGet("{id}")]
         [SwaggerOperation(
             Summary = "Busca usuario por Id",
