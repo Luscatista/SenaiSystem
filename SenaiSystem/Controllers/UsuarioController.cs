@@ -85,7 +85,7 @@ namespace SenaiSystem.Controllers
             }
             catch (Exception)
             {
-                return NotFound("Nota não encontrado.");
+                return NotFound("Usuario não encontrado.");
             }
         }
 

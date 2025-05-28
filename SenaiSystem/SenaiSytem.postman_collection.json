@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "07a7bb13-7d9d-4a13-94c7-965cd26453ba",
+		"name": "SenaiSytem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38752902"
+	},
+	"item": [
+		{
+			"name": "Notas",
+			"item": [
+				{
+					"name": "ListarNotas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJzZW5oYXNlbmhhQHNlbmFpLmNvbSIsImV4cCI6MTc0ODA0NDE3MSwiaXNzIjoic2VuYWlTeXN0ZW0iLCJhdWQiOiJzZW5haVN5c3RlbSJ9.plHUReRiwmrio-T1_MXLuoL9q0-uGI8GoeM14zc_kOI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7270/api/Nota",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Nota"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CriarNota",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "ListarCategorias",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "LIstarCategoriasPorUsuario",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "CadastrarUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jeremias@senai.com\",\r\n  \"senha\": \"jeremias_senha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarUsuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqZXJlbWlhc0BzZW5haS5jb20iLCJleHAiOjE3NDgzOTM1MzEsImlzcyI6InNlbmFpU3lzdGVtIiwiYXVkIjoic2VuYWlTeXN0ZW0ifQ.3zMz0gj4Ibs3Of1f_Nv0sS2dc7khLI-xNemzmeY4mks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPorId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqZXJlbWlhc0BzZW5haS5jb20iLCJleHAiOjE3NDgzOTIzNjcsImlzcyI6InNlbmFpU3lzdGVtIiwiYXVkIjoic2VuYWlTeXN0ZW0ifQ.avBIHW3BA-_tmDs1IjJA2Jsd5jbo3xmiznIgH-4NLdk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditarUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqZXJlbWlhc0BzZW5haS5jb20iLCJleHAiOjE3NDgzOTIzNjcsImlzcyI6InNlbmFpU3lzdGVtIiwiYXVkIjoic2VuYWlTeXN0ZW0ifQ.avBIHW3BA-_tmDs1IjJA2Jsd5jbo3xmiznIgH-4NLdk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Jeremias Reis\",\r\n  \"email\": \"jeremias@senai.com\",\r\n  \"senha\": \"jeremiasSenha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TrocarSenha",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqZXJlbWlhc0BzZW5haS5jb20iLCJleHAiOjE3NDgzOTIzNjcsImlzcyI6InNlbmFpU3lzdGVtIiwiYXVkIjoic2VuYWlTeXN0ZW0ifQ.avBIHW3BA-_tmDs1IjJA2Jsd5jbo3xmiznIgH-4NLdk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"senhaAtual\": \"jeremiasSenha\",\r\n  \"novaSenha\": \"jeremias_senha\",\r\n  \"idUsuario\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario/TrocarSenha/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario",
+								"TrocarSenha",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletarUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqZXJlbWlhc0BzZW5haS5jb20iLCJleHAiOjE3NDgzOTM1MzEsImlzcyI6InNlbmFpU3lzdGVtIiwiYXVkIjoic2VuYWlTeXN0ZW0ifQ.3zMz0gj4Ibs3Of1f_Nv0sS2dc7khLI-xNemzmeY4mks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7270/api/Usuario/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7270",
+							"path": [
+								"api",
+								"Usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
